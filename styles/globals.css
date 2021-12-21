@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: #fff;
 }
 
 body {
@@ -28,10 +29,33 @@ a {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #2b2a2a;
+  background: #21303e;
   border-radius: 20px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #353535;
+  background: #506178;
+}
+
+.react-input-emoji--container {
+  background: #17212b !important;
+  color: #fff !important;
+}
+.react-emoji-picker--wrapper {
+  overflow: auto !important;
+  width: 360px !important;
+  height: 360px !important;
+}
+
+.voice-recording-player a {
+  display: none;
+  border-radius: 0 !important;
+}
+
+canvas {
+  height: 20px !important;
+  width: 70% !important;
+  min-width: 170px !important;
+  max-width: 300px !important;
+  overflow: auto !important;
 }
