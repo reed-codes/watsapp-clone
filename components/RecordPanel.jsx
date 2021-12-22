@@ -8,7 +8,7 @@ import "react-audio-player-pro/dist/style.css";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import StopIcon from "@mui/icons-material/Stop";
 
-const RecordPanel = ({ handleDiscardRecording, record }) => {
+const RecordPanel = ({ handleDiscardRecording, record, send }) => {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
@@ -65,14 +65,17 @@ const RecordPanel = ({ handleDiscardRecording, record }) => {
                   />
                 </Box>
               ) : (
-                <Box className="w-[]75% h-[1px] bg-[#fff] min-w-[185px] min-w-[300px] mr-3" />
+                <Box className="w-[75%] h-[1px] bg-[#fff] min-w-[185px] min-w-[300px] mr-3 animate-pulse" />
               )}
             </Box>
           </Box>
         </Box>
 
         <Box className="w-[35px] h-[35px] min-w-[35px] min-h-[35px] rounded-full  flex items-center justify-center">
-          <IconButton className="min-w-[35px] min-h-[35px] text-[#5187c0] hover:text-[#408af0] active:text-[#344a60]">
+          <IconButton
+            className="min-w-[35px] min-h-[35px] text-[#5187c0] hover:text-[#408af0] active:text-[#344a60]"
+            onClick={send}
+          >
             <SendIcon className="text-[20px]" />
           </IconButton>
         </Box>

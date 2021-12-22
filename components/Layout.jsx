@@ -7,6 +7,10 @@ import ChatControls from "./ChatControls";
 
 export default function Layout({ children }) {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [openMediaUploader, setOpenMediaUploader] = useState(false);
+
+  const handleMediaUploaderOpen = () => setOpenMediaUploader(true);
+  const handleMediaUploaderClose = () => setOpenMediaUploader(false);
 
   const toggleDrawer = (state) => (event) => {
     if (
@@ -29,23 +33,21 @@ export default function Layout({ children }) {
           <UserAccountsListWrapper toggleDrawer={toggleDrawer} />
         </Box>
 
-
-
         <Box
           className="h-full w-[73vw] bg-[#0e1621] pt-[100px] pb-[55px] relative"
           sx={{ transform: "translate(0,0)" }}
-          onDragEnter={()=>{console.log("boom")}}
-          onDragLeave={()=>{console.log("boom")}}
+          onDragOver={handleMediaUploaderOpen}
         >
-
           <ChatBoxTopBar />
 
           {children}
 
-          <ChatControls />
+          <ChatControls
+            handleMediaUploaderOpen={handleMediaUploaderOpen}
+            handleMediaUploaderClose={handleMediaUploaderClose}
+            openMediaUploader={openMediaUploader}
+          />
         </Box>
-
-
       </Box>
 
       <SwipeableTemporaryDrawer

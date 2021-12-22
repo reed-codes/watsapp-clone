@@ -59,3 +59,8 @@ canvas {
   max-width: 300px !important;
   overflow: auto !important;
 }
+
+.dropzone {
+  height: 100%;
+  width: 100%;
+}
