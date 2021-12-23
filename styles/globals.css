@@ -5,6 +5,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   color: #fff;
+  background-color: #0e1621;
 }
 
 body {
@@ -58,6 +59,14 @@ canvas {
   min-width: 170px !important;
   max-width: 300px !important;
   overflow: auto !important;
+}
+
+@media (max-width: 763px) {
+  canvas {
+    min-width: 85px !important;
+    width: 70% !important;
+    max-width: 113px !important;
+  }
 }
 
 .dropzone {

@@ -6,11 +6,11 @@ import DoneIcon from "@mui/icons-material/Done";
 
 const MessageWrapper = (props) => {
   return (
-    <Box className={`w-full flex justify-${props.self ? "end" : "start"}`}>
+    <Box className={`w-full mb-2 flex justify-${props.self ? "end" : "start"}`}>
       <Box
-        className={`max-w-[480px] relative p-4 ${
+        className={`max-w-[65%] md:max-w-[430px] relative p-4 ${
           props.self ? "bg-[#3c69a2]" : "bg-[#141f2a]"
-        } text-white rounded pb-[35px] mb-1`}
+        } text-white rounded pb-[35px]`}
       >
           {props.children}
 

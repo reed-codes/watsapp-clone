@@ -48,7 +48,7 @@ const RecordPanel = ({ handleDiscardRecording, record, send }) => {
                     recording
                     />
               ) : (
-                <Box className="w-[75%] h-[1px] bg-[#fff] min-w-[185px] min-w-[300px] mr-3 animate-pulse" />
+                <Box className="w-[75%] h-[1px] bg-[#fff] w-[85px] md:min-w-[185px] w-[100px] md:min-w-[300px] mr-3 animate-pulse" />
               )}
             </Box>
           </Box>

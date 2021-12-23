@@ -33,24 +33,28 @@ export default function Layout() {
       return;
     }
 
+    console.log("boom")
+
     setOpenChatDrawer(state);
   };
 
   return (
     <>
       <Box className="h-screen w-full flex items-start">
-        <Box className="flex flex-col min-w-[300px] w-[27vw] h-full bg-[#17212b] relative pt-[30px]">
+        <Box className="flex flex-col min-w-[300px] md:w-[27vw] w-full h-full bg-[#17212b] relative pt-[30px]">
           <UserAccountsListWrapper toggleDrawer={toggleAppDrawer} />
         </Box>
 
-        <ChatPortal
-          onDragOver={handleMediaUploaderOpen}
-          toggleDrawer={toggleChatDrawer}
-          handleMediaUploaderOpen={handleMediaUploaderOpen}
-          handleMediaUploaderClose={handleMediaUploaderClose}
-          openMediaUploader={openMediaUploader}
-        />
 
+        <Box className="w-[73vw] hidden md:block">
+          <ChatPortal
+            onDragOver={handleMediaUploaderOpen}
+            toggleDrawer={toggleChatDrawer}
+            handleMediaUploaderOpen={handleMediaUploaderOpen}
+            handleMediaUploaderClose={handleMediaUploaderClose}
+            openMediaUploader={openMediaUploader}
+          />
+        </Box>
       </Box>
 
       <SwipeableAppDrawer

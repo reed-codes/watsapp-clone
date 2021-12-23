@@ -62,8 +62,8 @@ const RecordingPanel = ({ stopRecording, status }) => {
             </Box>
           </Box>
 
-          <Box className="h-full flex-1 opacity-50 flex items-center justify-center">
-            Click the microphone icon to top recording
+          <Box className="h-full hidden md:flex flex-1 opacity-50 flex items-center justify-center">
+               Click the microphone icon to top recording
           </Box>
         </Box>
 

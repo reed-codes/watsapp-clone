@@ -7,7 +7,7 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import StopIcon from "@mui/icons-material/Stop";
 import MessageWrapper from "./common/MessageWrapper";
 
-const TextMessageItem = () => {
+const TextMessageItem = (props) => {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const TextMessageItem = () => {
   }, [playing]);
 
   return (
-    <MessageWrapper>
+    <MessageWrapper self = {props.self}>
       <Box className="flex items-center gap-2">
         <IconButton
           className="h-[60px] w-[60px] rounded-full bg-blue-400 hover:bg-[#528bd1] text-white flex"
@@ -34,7 +34,7 @@ const TextMessageItem = () => {
           {playing ? (
             <VoiceNoteAudioPlayer url="./demo.mp3" />
           ) : (
-            <Box className="w-[75%] h-[1px] bg-[#fff] min-w-[185px] min-w-[300px] mr-3 animate-pulse" />
+            <Box className="w-[75%] h-[1px] bg-[#fff] min-w-[85px] md:min-w-[185px] min-w-[100px] md:min-w-[300px] mr-3 animate-pulse" />
           )}
         </Box>
       </Box>
