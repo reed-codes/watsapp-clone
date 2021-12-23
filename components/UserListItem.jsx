@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 
 const UserListItem = () => {
   return (
-    <Button className="block p-0 m-0 w-full h-[72px] text-left my-1">
+    <Button className="block p-0 m-0 w-full h-[72px] text-left my-1 rounded-none">
       <Box className="flex items-center text-white gap-3 overflow-hidden px-4 w-full h-full">
         <Avatar
           alt="Remy Sharp"

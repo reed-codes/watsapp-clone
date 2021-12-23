@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
-export default function SwipeableTemporaryDrawer(props) {
+export default function SwipeableChatDrawer(props) {
   return (
     <Box>
       <SwipeableDrawer
-        anchor={"left"}
+        anchor={"right"}
         open={props.openDrawer}
         onClose={props.toggleDrawer(false)}
         onOpen={props.toggleDrawer(true)}
@@ -15,7 +15,12 @@ export default function SwipeableTemporaryDrawer(props) {
           role="presentation"
           onClick={props.toggleDrawer(false)}
           onKeyDown={props.toggleDrawer(false)}
-        ></Box>
+          className = "bg-[#17212b] h-full"
+        >
+          
+          
+          
+        </Box>
       </SwipeableDrawer>
     </Box>
   );
