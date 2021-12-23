@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { IconButton } from "@mui/material";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import VoiceNoteAudioPlayer from "../VoiceNoteAudioPlayer";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from "@mui/icons-material/Stop";
 import MessageWrapper from "./common/MessageWrapper";
 
@@ -24,9 +24,9 @@ const TextMessageItem = (props) => {
           onClick={() => setPlaying(!playing)}
         >
           {playing ? (
-            <StopIcon className="text-[20px] text-white" />
+            <StopIcon className="text-[30px] text-white" />
           ) : (
-            <PlayCircleIcon className="text-[20px] text-white" />
+            <PlayArrowIcon className="text-[30px] text-white" />
           )}
         </IconButton>
 
