@@ -33,8 +33,6 @@ export default function Layout() {
       return;
     }
 
-    console.log("boom")
-
     setOpenChatDrawer(state);
   };
 
@@ -47,13 +45,16 @@ export default function Layout() {
 
 
         <Box className="w-[73vw] hidden md:block">
-          <ChatPortal
+          {/* <ChatPortal
             onDragOver={handleMediaUploaderOpen}
             toggleDrawer={toggleChatDrawer}
             handleMediaUploaderOpen={handleMediaUploaderOpen}
             handleMediaUploaderClose={handleMediaUploaderClose}
             openMediaUploader={openMediaUploader}
-          />
+          /> */}
+
+          <EmptyChatUI />
+
         </Box>
       </Box>
 
@@ -68,4 +69,17 @@ export default function Layout() {
       />
     </>
   );
+}
+
+
+const EmptyChatUI = () => {
+  return (
+
+    <Box className="w-full h-screen flex items-center justify-center">
+
+      <Box className="px-5 py-2 bg-[#1e2f47] rounded-full text-white">Select a chat to start messaging</Box>
+
+    </Box>
+
+  )
 }
