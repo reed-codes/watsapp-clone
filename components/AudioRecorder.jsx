@@ -53,7 +53,9 @@ const RecordingPanel = ({ stopRecording, status }) => {
 
   return (
     <>
-      <Box className="fixed left-0 top-0 w-full h-full bg-[#17212b] flex gap-2 items-center px-4">
+      <Box className="fixed left-0 top-0 w-full h-full bg-[#17212b] flex gap-2 items-center px-4"
+           sx = {{display:'flex'}}
+           >
         <Box className="flex flex-1 h-full">
           <Box className="h-full w-[70px] flex items-center justify-between">
             <Box className="h-[10px] w-[10px] bg-[#1976d2] rounded-full" />
@@ -67,7 +69,13 @@ const RecordingPanel = ({ stopRecording, status }) => {
           </Box>
         </Box>
 
-        <Box className="w-[35px] h-[35px] min-w-[35px] min-h-[35px] rounded-full bg-pink-600 relative flex items-center justify-center">
+        <Box className="w-[35px] h-[35px] min-w-[35px] min-h-[35px] rounded-full bg-pink-600 relative flex items-center justify-center"
+             sx = {{
+               display:'flex',
+               alignItems:'center',
+               justifyContent:'center'
+            }}
+             >
           <MicNoneIcon
             className={`text-[20px] ${
               status === "recording" ? "opacity-100" : "opacity-150"
