@@ -10,10 +10,14 @@ const ChatBoxTopBar = (props) => {
   return (
     <Box className="h-[70px] bg-[#17212b] w-full fixed left-0 top-[30px] flex items-center justify-between border-l border-b border-solid border-gray-900">
       <Button
-        className="h-full md:hidden block text-white rounded-none"
+        className="h-full flex md:hidden text-white rounded-none"
+        sx = {{
+          borderRadius:0,
+          color:'#fff'
+        }}
         onClick={() => router.back()}
       >
-        <ArrowBackIcon />
+        <ArrowBackIcon  />
       </Button>
 
       <Box

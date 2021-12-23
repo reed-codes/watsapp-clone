@@ -17,7 +17,7 @@ export default function SwipeableChatDrawer(props) {
           onKeyDown={props.toggleDrawer(false)}
           className = "bg-[#17212b] h-full"
         >
-           <Box className = "h-[300px] w-full hover:brightness-75 cursor-pointer">
+           <Box className = "h-[300px] w-full hover:brightness-75 cursor-pointer bg-black">
                <Avatar src = "https://www.pyramidinternational.com/assets/img/products/WDC95124"
                sx = {{
                  width:'100%',
