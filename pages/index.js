@@ -45,15 +45,15 @@ export default function Layout() {
 
 
         <Box className="w-[73vw] hidden md:block">
-          {/* <ChatPortal
+          <ChatPortal
             onDragOver={handleMediaUploaderOpen}
             toggleDrawer={toggleChatDrawer}
             handleMediaUploaderOpen={handleMediaUploaderOpen}
             handleMediaUploaderClose={handleMediaUploaderClose}
             openMediaUploader={openMediaUploader}
-          /> */}
+          />
 
-          <EmptyChatUI />
+          {/* <EmptyChatUI /> */}
 
         </Box>
       </Box>
