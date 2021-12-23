@@ -77,7 +77,7 @@ const ChatControls = (props) => {
   return (
     <>
       <Box
-        className="w-full fixed bottom-0 left-0 flex items-center gap-1 px-4 py-2 bg-[#17212b] border-l border-solid border-gray-900"
+        className="w-full fixed bottom-0 left-0 flex items-center gap-1 px-4 py-2 bg-[#17212b] border-l border-t border-solid border-gray-900"
         sx={{ transform: "translate(0,0)" }}
       >
         <IconButton

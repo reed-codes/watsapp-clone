@@ -3,16 +3,15 @@ import { IconButton } from "@mui/material";
 import { Box } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import AudioSpectrum from "react-audio-spectrum";
-import "react-audio-player-pro/dist/style.css";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import StopIcon from "@mui/icons-material/Stop";
+import VoiceNoteAudioPlayer from "./VoiceNoteAudioPlayer";
 
 const RecordPanel = ({ handleDiscardRecording, record, send }) => {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const audioEl = document.querySelector("#voice-note-audio-element");
+    const audioEl = document.querySelector("#recording-audio-element");
     if (audioEl && playing) audioEl.play();
     else if (audioEl && !playing) audioEl.load();
   }, [playing]);
@@ -44,26 +43,10 @@ const RecordPanel = ({ handleDiscardRecording, record, send }) => {
               </IconButton>
 
               {playing ? (
-                <Box>
-                  <audio
-                    id="voice-note-audio-element"
-                    className="hidden"
-                    src={record.blobUrl}
-                    loop
-                  />
-                  <AudioSpectrum
-                    id="audio-canvas"
-                    height={20}
-                    width={200}
-                    audioId={"voice-note-audio-element"}
-                    capHeight={2}
-                    meterWidth={2}
-                    meterCount={612}
-                    capColor={"#fff"}
-                    meterColor="#4c9ce2"
-                    gap={2}
-                  />
-                </Box>
+                <VoiceNoteAudioPlayer
+                    url = {record.blobUrl}
+                    recording
+                    />
               ) : (
                 <Box className="w-[75%] h-[1px] bg-[#fff] min-w-[185px] min-w-[300px] mr-3 animate-pulse" />
               )}

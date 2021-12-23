@@ -167,7 +167,7 @@ const PostMetadataForm = (props) => {
         <Box className="h-full w-full bg-[#05070b] overflow-hidden">
           <img
             src={props.file ? props.file.preview : ""}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center pointer-events-none"
           />
         </Box>
 

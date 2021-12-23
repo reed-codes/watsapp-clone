@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Button, Typography } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
+import Avatar from '@mui/material/Avatar';
 
 export default function SwipeableAppDrawer(props) {
   return (
@@ -21,7 +21,10 @@ export default function SwipeableAppDrawer(props) {
         >
           <Box className="w-full bg-blue-400 p-4">
             <Box className="w-full flex items-center justify-center p-4">
-              <Box className="h-[150px] w-[150px] bg-black rounded-full"></Box>
+              <Avatar alt="Remy Sharp" 
+                      src="https://sportshub.cbsistatic.com/i/2021/09/08/60d0ccff-ab4e-45e6-8e02-09f86ef40ea2/rick-and-morty-season-rick-morty-break-up-adult-swim-1281894.jpg"
+                      className="h-[150px] w-[150px] bg-black rounded-full"
+                      />
             </Box>
 
             <Typography className="font-bold">Grimm Reaper</Typography>
@@ -43,6 +46,7 @@ export default function SwipeableAppDrawer(props) {
 
             <Box className="absolute bottom-0 left-0 w-full p-4 opacity-75">
               <Typography className="font-bold">Telegram Clone</Typography>
+              <Typography className="text-sm font-bold opacity-50">By Reedemer</Typography>
               <Typography className="text-sm">Version 3.3</Typography>
             </Box>
           </Box>
