@@ -74,7 +74,7 @@ const RecordingPanel = ({ stopRecording, status }) => {
             }`}
           />
           <IconButton
-            className="min-w-[35px] min-h-[35px] bg-pink-600 active:bg-[#1976d2] animate-ping origin-center absolute"
+            className="min-w-[35px] min-h-[35px] bg-pink-600 active:bg-[#1976d2] animate-ping origin-center absolute top-0 bottom-0 left-0 right-0 z-10"
             onClick={stopRecording}
           >
             <MicNoneIcon className="text-[20px]" />

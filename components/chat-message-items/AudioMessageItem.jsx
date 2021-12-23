@@ -34,7 +34,7 @@ const TextMessageItem = (props) => {
           {playing ? (
             <VoiceNoteAudioPlayer url="./demo.mp3" />
           ) : (
-            <Box className="w-[75%] h-[1px] bg-[#fff] min-w-[85px] md:min-w-[185px] min-w-[100px] md:min-w-[300px] mr-3 animate-pulse" />
+            <Box className="w-[75%] h-[1px] bg-[#fff] min-w-[85px] md:min-w-[185px] mr-3 animate-pulse" />
           )}
         </Box>
       </Box>

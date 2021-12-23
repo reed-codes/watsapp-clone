@@ -39,11 +39,27 @@ export default function SwipeableAppDrawer(props) {
 
           <Box className="w-full h-full flex-1 relative pt-4">
          
-           <Button className = "w-full justify-start p-4 font-bold text-white rounded-none">
+           <Button className = "w-full justify-start p-4 font-bold text-white rounded-none"
+                   sx = {{
+                         justifyContent:'flex-start',
+                         fontWeight:'bold',
+                         color:'#fff',
+                         borderRadius:0,
+                         padding:"16px"
+                   }}
+                   >
                Users
            </Button>
 
-           <Button className = "w-full justify-start p-4 font-bold text-white rounded-none">
+           <Button className = "w-full justify-start p-4 font-bold text-white rounded-none"
+                   sx = {{
+                         justifyContent:'flex-start',
+                         fontWeight:'bold',
+                         color:'#fff',
+                         borderRadius:0,
+                         padding:"16px"
+                   }}
+                   >
                Log out
            </Button>
             

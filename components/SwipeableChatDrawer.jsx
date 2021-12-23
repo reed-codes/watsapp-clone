@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Avatar, Box,Typography } from "@mui/material";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
 export default function SwipeableChatDrawer(props) {
@@ -17,7 +17,27 @@ export default function SwipeableChatDrawer(props) {
           onKeyDown={props.toggleDrawer(false)}
           className = "bg-[#17212b] h-full"
         >
-          
+           <Box className = "h-[300px] w-full hover:brightness-75 cursor-pointer">
+               <Avatar src = "https://www.pyramidinternational.com/assets/img/products/WDC95124"
+               sx = {{
+                 width:'100%',
+                 height:'100%',
+                 objectFit:'cover',
+                 objectPosition:'center',
+                 borderRadius:0
+               }}
+                    />
+           </Box>
+
+           <Box sx = {{padding:'16px'}}> 
+
+           <Typography className="font-bold text-[30px]">Grimm Reaper</Typography>
+            <Typography className="font-bold text-sm opacity-75">
+              kbker6jn3erlkejrer
+            </Typography>
+
+           </Box>
+
           
           
         </Box>
