@@ -3,11 +3,12 @@ import { Box } from "@mui/material";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Button, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
-import {useAuthStatus} from "../firebase/hooks";
 import { signOut } from "../lib";
+import { useAppContext } from './Layout';
 
 export default function SwipeableAppDrawer(props) {
-  const [user, loading, error] = useAuthStatus();
+  const {user} = useAppContext()
+  
   return (
     <Box>
       <SwipeableDrawer
@@ -26,7 +27,7 @@ export default function SwipeableAppDrawer(props) {
           <Box className="w-full bg-blue-400 p-4">
             <Box className="w-full flex items-center justify-center p-4">
               <Avatar alt={user ? user.displayName : ""} 
-                      src={user && user.providerData[0].photoURL}
+                      src={user && user.photoURL}
                       className="bg-black rounded-full"
                       sx = {{
                          height:"130px",

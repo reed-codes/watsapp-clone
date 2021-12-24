@@ -85,10 +85,12 @@ export const useDocumentOnce = (collectionName, id) => {
  * Returns a reference to specified collection.
  * @param {string} collection - The name of the collection.
  */
-export const getCollection = (collectionName)=>{
-    if(collectionName) return collection(db, collectionName)
-    else throw {message:"NO_COLLECTION_SPECIFIED"}
+export const getCollection = (collectionName) => {
+    if (collectionName) return collection(db, collectionName)
+    else throw { message: "NO_COLLECTION_SPECIFIED" }
 }
+
+
 
 /**
  * Gets a single firebase document.
@@ -106,10 +108,38 @@ export const getDocument = async (collection, id) => {
     else throw { message: "NO_SUCH_DOCUMENT" }
 }
 
+
+
 /**
  * Sets a single firebase document
  * if the document exists, it will be overwritten.
  * @param {string} collection - The name of the collection.
  * @param {object} document - The new document as an object.
  */
-export const setDocument = async (collection, document) => await setDoc(doc(db, collection, id), document, { merge: true });
+export const setDocument = async (collection, document) => {
+    const docRef = doc(db, collection, document.ID);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        // console.log("DOCUMENT ALREADY EXI:", docSnap.data());
+        console.log("DOCUMENT_ALREADY_EXISTS:");
+    } else {
+        console.log("ADDING_NEW_DOCUMENT");
+        await setDoc(doc(db, collection, document.ID), document);
+        console.log("NEW_DOCUMENT_ADDED")
+    }
+}
+
+
+
+/**
+ * Returns a reference to specified collection.
+ * @param {string} collection - The name of the collection.
+ */
+export const addUser = (user, collection) => {
+    if (!collection) throw { message: "NO_COLLECTION_SPECIFIED" };
+    if (!user) throw { message: "NO_USER_SPECIFIED" };
+
+    if (collectionName) return collection(db, collectionName)
+    else throw { message: "NO_COLLECTION_SPECIFIED" }
+}

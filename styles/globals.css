@@ -73,3 +73,19 @@ canvas {
   height: 100%;
   width: 100%;
 }
+
+
+.fade-in{
+  opacity: 0;
+  animation-name: fadein;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-duration: .5s;
+}
+
+@keyframes fadein {
+  to{
+    opacity: 1;
+  }
+}

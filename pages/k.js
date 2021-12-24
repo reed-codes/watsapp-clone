@@ -1,17 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import UserAccountsListWrapper from "../components/UserAccountsListWrapper";
 import SwipeableAppDrawer from "../components/SwipeableAppDrawer";
 import SwipeableChatDrawer from "../components/SwipeableChatDrawer";
 import ChatPortal from "../components/ChatPortal";
-{/* <Box
-sx={{
-  transform: "translate(-50%, -50%)",
-  boxShadow: 24,
-}}
-className="absolute top-[50%] left-[50%] flex justify-center flex-col basis-[505px] rounded-xl w-full h-full max-h-[508px] max-w-[75%] lg:max-w-[505px] bg-[#0e1621] overflow-hidden"
-> */}
+import { useAppContext } from '../components/Layout'
+import { setDocument } from "../firebase/hooks";
+
+
 export default function Layout() {
+  const { user } = useAppContext()
   const [openAppDrawer, setOpenAppDrawer] = useState(false);
   const [openChatDrawer, setOpenChatDrawer] = useState(false);
   const [openMediaUploader, setOpenMediaUploader] = useState(false);
@@ -38,9 +36,29 @@ export default function Layout() {
     ) {
       return;
     }
-
     setOpenChatDrawer(state);
   };
+
+  useEffect(() => {
+    if (user) {
+      const data = {
+        Email: user.email,
+        Username: user.displayName,
+        ID: user.uid,
+        ProfileImage: user.photoURL,
+        WallpaperImage: '',
+        JoinedDate: user.metadata.creationTime,
+        LastSignInTime: user.metadata.lastSignInTime,
+        LastSeen: (new Date()).getTime(),
+        Chats: []
+      }
+
+      const setUserDbRecord = async ()=> await setDocument("users", data)
+
+      setUserDbRecord()
+    }
+
+  }, [])
 
   return (
     <>

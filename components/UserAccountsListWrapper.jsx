@@ -5,7 +5,6 @@ import UserListItem from "./UserListItem";
 import withUsersMonitor from "../firebase/hocs/withUsersMonitor";
 
 const UserAccountsListWrapper = ({ toggleDrawer, users }) => {
-  console.log(users)
   return (
     <Box>
       <UserAccountsListWrapperTopBar toggleDrawer={toggleDrawer} />
