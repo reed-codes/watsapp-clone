@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Button, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
-import useAuthStatus from "../firebase/hooks/useAuthStatus";
+import {useAuthStatus} from "../firebase/hooks";
 import { signOut } from "../lib";
 
 export default function SwipeableAppDrawer(props) {
@@ -35,21 +35,33 @@ export default function SwipeableAppDrawer(props) {
                       />
             </Box>
 
-            <Typography className="font-bold text-[23px]">{user && user.displayName}</Typography>
-            <Typography className="font-bold text-[13px] opacity-75">
+            <Typography className="font-bold text-[23px]"
+                        sx= {{
+                          fontWeight:'bold',
+                          fontSize:"23px"
+                        }}
+                        >
+                  {user && user.displayName}
+            </Typography>
+            <Typography className="text-[13px] opacity-75">
               {user && user.email}
             </Typography>
           </Box>
 
           <Box className="w-full h-full flex-1 relative pt-4">
 
-           <Button className = "w-full justify-start p-4 font-bold text-white rounded-none absolute bottom-[110px] left-0 bg-[rgb(0,0,0,.1)]"
+           <Button className = "w-full justify-start p-4 font-bold text-white rounded-none"
                    sx = {{
                          justifyContent:'flex-start',
                          fontWeight:'bold',
                          color:'#fff',
                          borderRadius:0,
-                         padding:"16px"
+                         padding:"16px",
+                         position:'absolute',
+                         background:"rgb(0,0,0,.1)",
+                         bottom:"120px",
+                         left:0
+
                    }}
                    onClick = {()=> signOut()}
                    >

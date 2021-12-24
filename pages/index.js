@@ -1,91 +1,43 @@
-import { useState } from "react";
-import { Box } from "@mui/material";
-import UserAccountsListWrapper from "../components/UserAccountsListWrapper";
-import SwipeableAppDrawer from "../components/SwipeableAppDrawer";
-import SwipeableChatDrawer from "../components/SwipeableChatDrawer";
-import ChatPortal from "../components/ChatPortal";
-{/* <Box
-sx={{
-  transform: "translate(-50%, -50%)",
-  boxShadow: 24,
-}}
-className="absolute top-[50%] left-[50%] flex justify-center flex-col basis-[505px] rounded-xl w-full h-full max-h-[508px] max-w-[75%] lg:max-w-[505px] bg-[#0e1621] overflow-hidden"
-> */}
-export default function Layout() {
-  const [openAppDrawer, setOpenAppDrawer] = useState(false);
-  const [openChatDrawer, setOpenChatDrawer] = useState(false);
-  const [openMediaUploader, setOpenMediaUploader] = useState(false);
+import React from 'react'
+import { Box } from '@mui/system'
+import { Button } from '@mui/material'
+import GoogleIcon from "@mui/icons-material/Google";
+import { signInWithGoogle } from "../lib";
 
-  const handleMediaUploaderOpen = () => setOpenMediaUploader(true);
-  const handleMediaUploaderClose = () => setOpenMediaUploader(false);
+const SignIn = () => {
+    return (
+        <Box
+            className="fixed bottom-0 flex justify-center items-center flex-col w-full h-full overflow-hidden bg-[#001b3c]"
+        >
+            <img src="/login-artwork.png"
+                className="w-[300px] h-[300px] object-cover mb-10 rounded-full pointer-events-none"
+            />
 
-  const toggleAppDrawer = (state) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setOpenAppDrawer(state);
-  };
 
-  const toggleChatDrawer = (state) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
+            <Button
+                variant="contained"
+                className="p-0 justify-center items-center overflow-hidden w-[290px] bg-black rounded-lg"
+                sx={{
+                    boxShadow: 20,
+                    padding: 0
+                }}
+                onClick={signInWithGoogle}
+            >
+                <Box component="span" className="bg-white p-4 h-full min-w-[80px] flex items-center justify-center">
+                    <GoogleIcon className="text-[red]" />
+                </Box>
+                <Box component="span"
+                    className="font-bold p-4 h-full w-full bg-[#049be4] flex items-center justify-center text-white"
+                >
+                    Sign in with google
+                </Box>
+            </Button>
 
-    setOpenChatDrawer(state);
-  };
-
-  return (
-    <>
-      <Box className="h-screen w-full flex items-start">
-        <Box className="flex flex-col min-w-[300px] md:w-[27vw] w-full h-full bg-[#17212b] relative pt-[30px]">
-          <UserAccountsListWrapper toggleDrawer={toggleAppDrawer} />
+            <img src="/telegram-logo.png"
+                className="w-[60px] h-[60px] object-contain mb-4 rounded-lg animate-bounce absolute bottom-5 w-full left-0 right-0 m-auto pointer-events-none"
+            />
         </Box>
-
-
-        <Box className="w-[73vw] hidden md:block">
-          <ChatPortal
-            onDragOver={handleMediaUploaderOpen}
-            toggleDrawer={toggleChatDrawer}
-            handleMediaUploaderOpen={handleMediaUploaderOpen}
-            handleMediaUploaderClose={handleMediaUploaderClose}
-            openMediaUploader={openMediaUploader}
-          />
-
-          {/* <EmptyChatUI /> */}
-
-        </Box>
-      </Box>
-
-      <SwipeableAppDrawer
-        openDrawer={openAppDrawer}
-        toggleDrawer={toggleAppDrawer}
-      />
-
-      <SwipeableChatDrawer
-        openDrawer={openChatDrawer}
-        toggleDrawer={toggleChatDrawer}
-      />
-    </>
-  );
+    )
 }
 
-
-const EmptyChatUI = () => {
-  return (
-
-    <Box className="w-full h-screen flex items-center justify-center">
-
-      <Box className="px-5 py-2 bg-[#1e2f47] rounded-full text-white">Select a chat to start messaging</Box>
-
-    </Box>
-
-  )
-}
+export default SignIn

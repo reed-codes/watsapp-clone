@@ -31,9 +31,16 @@ export default function SwipeableChatDrawer(props) {
 
            <Box sx = {{padding:'16px'}}> 
 
-           <Typography className="font-bold text-[30px]">Grimm Reaper</Typography>
-            <Typography className="font-bold text-sm opacity-75">
-              kbker6jn3erlkejrer
+           <Typography className="font-bold text-[23px]"
+                        sx= {{
+                          fontWeight:'bold',
+                          fontSize:"23px"
+                        }}
+                        >
+                          Grimm Reaper
+            </Typography>
+            <Typography className="text-[13px] opacity-75">
+               lkewrglkewrg elrg erg
             </Typography>
 
            </Box>
