@@ -2,6 +2,7 @@ import { initializeApp } from '@firebase/app'
 import { getAuth } from '@firebase/auth'
 import { getFirestore } from '@firebase/firestore'
 import { getStorage } from '@firebase/storage'
+import { useAuthState } from 'react-firebase-hooks/auth';
  
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyDGPlYlakAeLCIhQSwgnQuH2z84ff-C7kw",
@@ -17,4 +18,7 @@ export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
 
+
 export default {auth, db, storage};
+
+export const useAuthStatus = ()=> useAuthState(auth)

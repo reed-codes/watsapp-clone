@@ -5,7 +5,7 @@ import 'tailwindcss/tailwind.css'
 import RouterIdicator from '../state/context/RouterIdicator'
 import UserProvider from '../state/context/userContext'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Box } from "@mui/material";
+import Layout from '../components/Layout';
 
 const darkTheme = createTheme({
   palette: {
@@ -19,8 +19,9 @@ function MyApp({ Component, pageProps }) {
       {/* <Provider store={store}> */}
       <RouterIdicator />
       <ThemeProvider theme={darkTheme}>
-        <Box className="h-[30px] w-full bg-[#242f3d] fixed top-0 z-10 left-0" />
+        <Layout>
           <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
       {/* </Provider > */}
     </UserProvider>

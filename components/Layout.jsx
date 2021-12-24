@@ -1,67 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import UserAccountsListWrapper from "./UserAccountsListWrapper";
-import SwipeableAppDrawer from "./SwipeableAppDrawer";
-import SwipeableChatDrawer from "./SwipeableChatDrawer";
-import ChatPortal from "./ChatPortal";
+import AuthModal from "./AuthModal";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/router";
 
-export default function Layout() {
-  const [openAppDrawer, setOpenAppDrawer] = useState(false);
-  const [openChatDrawer, setOpenChatDrawer] = useState(false);
-  const [openMediaUploader, setOpenMediaUploader] = useState(false);
+export default function Layout(props) {
+  const router = useRouter();
+  const [openAuthModal, setOpenAuthModal] = useState(false);
 
-  const handleMediaUploaderOpen = () => setOpenMediaUploader(true);
-  const handleMediaUploaderClose = () => setOpenMediaUploader(false);
+  const handleAuthModalOpen = () => setOpenAuthModal(true);
+  const handleAuthModalClose = () => setOpenAuthModal(false);
 
-  const toggleAppDrawer = (state) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setOpenAppDrawer(state);
-  };
-
-  const toggleChatDrawer = (state) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setOpenChatDrawer(state);
-  };
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) router.push("/sign-in");
+      else router.push("/")
+    });
+  }, []);
 
   return (
     <>
-      <Box className="h-screen w-full flex items-start">
-        <Box className="flex flex-col min-w-[300px] w-[27vw] h-full bg-[#17212b] relative pt-[30px]">
-          <UserAccountsListWrapper toggleDrawer={toggleAppDrawer} />
-        </Box>
-
-        <ChatPortal
-          onDragOver={handleMediaUploaderOpen}
-          toggleDrawer={toggleChatDrawer}
-          handleMediaUploaderOpen={handleMediaUploaderOpen}
-          handleMediaUploaderClose={handleMediaUploaderClose}
-          openMediaUploader={openMediaUploader}
-        />
-
-      </Box>
-
-      <SwipeableAppDrawer
-        openDrawer={openAppDrawer}
-        toggleDrawer={toggleAppDrawer}
-      />
-
-      <SwipeableChatDrawer
-        openDrawer={openChatDrawer}
-        toggleDrawer={toggleChatDrawer}
-      />
+      <Box className="h-[30px] w-full bg-[#242f3d] fixed top-0 z-10 left-0" />
+      {props.children}
     </>
   );
 }
