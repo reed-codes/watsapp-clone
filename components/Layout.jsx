@@ -1,10 +1,15 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import { Box } from "@mui/material";
+import { signOut } from "firebase/auth";
 
 const CurrentChat = createContext(null);
 
 export default function Layout(props) {
   const [currentChat, setCurrentChat] = useState("");
+
+  useEffect(()=>{
+     window.addEventListener('beforeunload', signOut);
+  },[])
 
   return (
     <CurrentChat.Provider value={{ currentChat, setCurrentChat }}>

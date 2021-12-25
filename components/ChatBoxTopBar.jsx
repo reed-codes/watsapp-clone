@@ -4,9 +4,12 @@ import { IconButton, Button } from "@mui/material";
 import ViewSidebarOutlinedIcon from "@mui/icons-material/ViewSidebarOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import moment from "moment";
 
 const ChatBoxTopBar = (props) => {
   const router = useRouter();
+  const m = moment(new Date(props.currentChat.LastSeen));
+
   return (
     <Box className="h-[70px] bg-[#17212b] w-full fixed left-0 top-[30px] flex items-center justify-between border-l border-b border-solid border-gray-900">
       <Button
@@ -20,7 +23,7 @@ const ChatBoxTopBar = (props) => {
         <ArrowBackIcon />
       </Button>
 
-      <Box className = "flex items-center justify-center lg:pl-4 ">
+      <Box className="flex items-center justify-center lg:pl-4 pr-2">
         <Avatar
           alt={props.currentChat.Username}
           src={props.currentChat.ProfileImage}
@@ -35,13 +38,13 @@ const ChatBoxTopBar = (props) => {
       </Box>
 
       <Box
-        className="flex flex-col justify-center flex-1 bg-[#17212b] cursor-pointer hover:brightness-90 active:brightness-75 px-4 h-full"
+        className="flex flex-col justify-center flex-1 bg-[#17212b] cursor-pointer hover:brightness-90 active:brightness-75 pr-4 pl-2 h-full"
         onClick={props.toggleDrawer(true)}
       >
         <Box className="font-bold text-[16px]">
           {props.currentChat.Username}
         </Box>
-        <Box>last seen recently</Box>
+        <Box className="text-[13px] opacity-70">last seen {m.fromNow()}</Box>
       </Box>
 
       <Box className="px-4">

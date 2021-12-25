@@ -24,9 +24,9 @@ export default function UserContextComp({ children }) {
             ID: person.uid,
             ProfileImage: person.photoURL,
             WallpaperImage: "",
-            JoinedDate: Timestamp.fromDate(new Date()),
+            JoinedDate: ( new Date() ).getTime(),
             LastSignInTime: person.metadata.lastSignInTime,
-            LastSeen: Timestamp.fromDate(new Date()),
+            LastSeen: ( new Date() ).getTime(),
             IsOnline: true,
             Chats: [],
           };

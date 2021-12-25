@@ -6,21 +6,20 @@ import { useMediaQuery } from "@mui/material";
 import { useCurrentChat } from "./Layout";
 
 const UserListItem = (props) => {
-  const {currentChat, setCurrentChat}  = useCurrentChat();
+  const { currentChat, setCurrentChat } = useCurrentChat();
   const minWidth768px = useMediaQuery("(min-width:763px)");
   const router = useRouter();
 
   const handleAccountClick = () => {
-    if(currentChat){
-        if((currentChat.ID === props.user.ID) && minWidth768px)
-        {
-          console.log("CHAT ALREADY OPEN")
-          return
-        }
+    if (currentChat) {
+      if (currentChat.ID === props.user.ID && minWidth768px) {
+        console.log("CHAT ALREADY OPEN");
+        return;
+      }
     }
-    if (minWidth768px) setCurrentChat( props.user );
+    if (minWidth768px) setCurrentChat(props.user);
     else {
-      setCurrentChat( props.user );
+      setCurrentChat(props.user);
       router.push(`c/${props.user.ID}`);
     }
   };
@@ -32,17 +31,26 @@ const UserListItem = (props) => {
       onClick={handleAccountClick}
     >
       <Box className="flex items-center text-white gap-3 overflow-hidden px-4 w-full h-full">
-        <Avatar
-          alt={props.user.Username}
-          src={props.user.ProfileImage}
-          sx={{
-            height: "54px",
-            width: "54px",
-            minWidth: "54px",
-            minHeight: "54px",
-          }}
-          component="span"
-        />
+        <Box className="relative">
+          <Avatar
+            alt={props.user.Username}
+            src={props.user.ProfileImage}
+            sx={{
+              height: "54px",
+              width: "54px",
+              minWidth: "54px",
+              minHeight: "54px",
+            }}
+            component="span"
+          />
+
+          <Box
+            className="bg-[#63b3fa] h-[8px] w-[8px] rounded-full absolute right-[3px] bottom-[5px]"
+            sx={{ display: props.user.IsOnline ? "block" : "none" }}
+          >
+            <Box className="h-full w-full bg-[cyan] rounded-full animate-pulse" />
+          </Box>
+        </Box>
 
         <Box className="flex flex-col justify-center h-full flex-1 relative overflow-hidden">
           <Box className="flex justify-between">
