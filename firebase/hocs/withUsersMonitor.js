@@ -1,58 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { getCollection } from "../hooks";
+import { useRouter } from "next/router";
 import {
     query,
-    limit,
-    orderBy,
-    getDocs,
+    where,
     onSnapshot,
+    collection
 } from "firebase/firestore";
+import { auth, db } from "../client-app";
 
 const withUsersMonitor = (WrappedComponent) => {
     return (
         (props) => {
-            const usersColRef = getCollection("users");
-            const q = query(usersColRef, orderBy("name"), limit(25));
+            const router = useRouter()
             const [users, setUsers] = useState([]);
 
             useEffect(() => {
+                if(!auth.currentUser) 
+                {
+                    router.push('/')
+                    return
+                }
 
-                getDocs(usersColRef)
-                    .then(snapshot => {
-                        let currentUsers = users
-                        snapshot.forEach((doc) => {
-                            currentUsers = [...currentUsers, doc.data()]
-                        })
-                        setUsers(removeDuplicates(currentUsers))
-                    }).catch(err=> console.log(err.message))
-
-
-                const unsubscribe = onSnapshot(q, () => {
-                    getDocs(usersColRef)
-                        .then(snapshot => {
-                            let newUsers = users
-                            snapshot.forEach((doc) => {
-                                newUsers = [...newUsers, doc.data()]
-                            })
-                            setUsers(removeDuplicates(newUsers))
-                        }).catch(err=> console.log(err.message))
-                });
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where('ID', 'not-in', [auth.currentUser.uid]));
+                const unsubscribe = onSnapshot(q, querySnapshot => {
+                    let users = []
+                    querySnapshot.forEach(doc => users.push( doc.data() ))
+                    setUsers(users)
+                })
 
                 return () => unsubscribe()
             }, [])
 
-
-            return <WrappedComponent users={users} {...props} />
+            return <WrappedComponent users = {users} {...props} />
         }
     )
 }
 
-const removeDuplicates = (arr) => {
-    if (Array.isArray(arr)) {
-        const stringArr = arr.map((user) => JSON.stringify(user))
-        const uniqueUsersStringArr = [...(new Set([...stringArr]))]
-        return uniqueUsersStringArr.map(str => JSON.parse(str))
-    } else throw "INVALID_PARAMETER_GIVEN_TO_removeDuplicates"
-}
+
 
 export default withUsersMonitor

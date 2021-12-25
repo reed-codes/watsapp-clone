@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getAuth } from "firebase/auth";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from '../client-app';
+import { collection, doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { auth, db } from '../client-app';
 
 export const useAuthStatus = () => {
     const [user, setUser] = useState(null)
@@ -122,13 +122,40 @@ export const setDocument = async (collection, document) => {
 
     if (docSnap.exists()) {
         // console.log("DOCUMENT ALREADY EXI:", docSnap.data());
-        console.log("DOCUMENT_ALREADY_EXISTS:");
+        console.log("DOCUMENT_ALREADY_EXISTS");
+        throw {message:"DOCUMENT_ALREADY_EXISTS"}
     } else {
         console.log("ADDING_NEW_DOCUMENT");
         await setDoc(doc(db, collection, document.ID), document);
         console.log("NEW_DOCUMENT_ADDED")
     }
 }
+
+
+export const updateOnlineStatus = async (bool)=>{
+    await updateDoc(getDocument("users", auth.currentUser.uid),{IsOnline:bool})
+}
+
+
+
+/**
+ * Updates the list of chats the user has
+ * adds a new conversation id to the Chats array of user object
+ * @param {string} userID - The name of the collection.
+ * @param {string} conversationID - The new document as an object.
+ */
+export const addConversation = async (user, conversationID) => {
+    const newChats = [...( new Set([...user.Chats, conversationID]) )]
+    // const userRef = getDocument("users", user.ID);
+    const userRef = doc(db, "users", user.ID);
+    await updateDoc(userRef, {
+        Chats: newChats
+    });
+    console.log("CHATS UPDATED")
+}
+
+
+
 
 
 

@@ -6,14 +6,10 @@ import { signInWithGoogle } from "../lib";
 
 const SignIn = () => {
     return (
-        <Box
-            className="fixed bottom-0 flex justify-center items-center flex-col w-full h-full overflow-hidden bg-[#001b3c]"
-        >
+        <Box className="fixed bottom-0 flex justify-center items-center flex-col w-full h-full overflow-hidden bg-[#001b3c]" >
             <img src="/login-artwork.png"
                 className="w-[300px] h-[300px] object-cover mb-10 rounded-full pointer-events-none"
             />
-
-
             <Button
                 variant="contained"
                 className="p-0 justify-center items-center overflow-hidden w-[290px] bg-black rounded-lg"
