@@ -6,7 +6,9 @@ import { useUser } from "../state/context/userContext";
 
 const UserAccountsListWrapper = ({ toggleDrawer, users }) => {
   const { user: currentUser } = useUser();
-  const accounts = users.filter((user) => user.ID !== (currentUser ? currentUser.ID : ""));
+  const accounts = users.filter(
+    (user) => user.ID !== (currentUser ? currentUser.ID : "")
+  );
 
   return (
     <Box>
@@ -14,7 +16,7 @@ const UserAccountsListWrapper = ({ toggleDrawer, users }) => {
 
       <Box className="h-full w-full overflow-auto pb-[100px]">
         {accounts.map((user) => {
-          return <UserListItem key={user.ID} {...user} />;
+          return <UserListItem key={user.ID} user={user} />;
         })}
       </Box>
     </Box>

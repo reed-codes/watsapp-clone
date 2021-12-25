@@ -8,9 +8,15 @@ import ImageMessageitem from "./chat-message-items/ImageMessageItem";
 // import { useAppContext } from "./Layout";
 import SwipeableChatDrawer from "./SwipeableChatDrawer";
 import { setDocument, addConversation } from "../firebase/hooks";
+import { useCurrentChat } from "./Layout";
 
 const ChatPortal = (props) => {
+  const { currentChat, setCurrentChat } = useCurrentChat();
+  const [openMediaUploader, setOpenMediaUploader] = useState(false);
   const [openChatDrawer, setOpenChatDrawer] = useState(false);
+
+  const handleMediaUploaderOpen = () => setOpenMediaUploader(true);
+  const handleMediaUploaderClose = () => setOpenMediaUploader(false);
   // const { currentUserchatID, user, setCurrentConversationID } = useAppContext();
 
   const toggleChatDrawer = (state) => (event) => {
@@ -53,9 +59,13 @@ const ChatPortal = (props) => {
       <Box
         className="h-screen w-full bg-[#0e1621] pt-[100px] pb-[55px] relative"
         sx={{ transform: "translate(0,0)" }}
-        onDragOver={props.handleMediaUploaderOpen}
+        onDragOver={handleMediaUploaderOpen}
       >
-        <ChatBoxTopBar {...props} toggleDrawer={toggleChatDrawer} />
+
+        <ChatBoxTopBar {...props} 
+                      toggleDrawer={toggleChatDrawer}
+                      currentChat = {currentChat}
+                      />
 
         <Box className="h-full w-full overflow-auto p-4">
           <TextMessageItem />
@@ -64,15 +74,16 @@ const ChatPortal = (props) => {
         </Box>
 
         <ChatControls
-          handleMediaUploaderOpen={props.handleMediaUploaderOpen}
-          handleMediaUploaderClose={props.handleMediaUploaderClose}
-          openMediaUploader={props.openMediaUploader}
+          handleMediaUploaderOpen={handleMediaUploaderOpen}
+          handleMediaUploaderClose={handleMediaUploaderClose}
+          openMediaUploader={openMediaUploader}
         />
       </Box>
 
       <SwipeableChatDrawer
         openDrawer={openChatDrawer}
         toggleDrawer={toggleChatDrawer}
+        currentChat = {currentChat}
       />
     </>
   );

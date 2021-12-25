@@ -8,8 +8,13 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import RecordPanel from "./RecordPanel";
 import MediaUploader from "./MediaUploader";
 import { useDropzone } from "react-dropzone";
+import { useCurrentChat } from "./Layout";
+import { auth, db } from "../firebase/client-app";
+import { setDoc, Timestamp, doc, collection, addDoc } from "firebase/firestore";
+import { v4 as uuid4 } from "uuid";
 
 const ChatControls = (props) => {
+  const { currentChat } = useCurrentChat();
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState([]);
   const [record, setRecord] = useState({
@@ -70,8 +75,28 @@ const ChatControls = (props) => {
     } else props.handleMediaUploaderClose();
   };
 
-  const handleSendRequest = () => {
-    console.log(message, files, record);
+  const handleSendRequest = async () => {
+    // console.log(message, files, record);
+    const userOne = auth.currentUser.uid;
+    const userTwo = currentChat.ID;
+    const conversationID =
+      userOne > userTwo
+        ? userTwo + "-hey-jude-" + userOne
+        : userOne + "-hey-jude-" + userTwo;
+
+    const messageObject = {
+      ID:uuid4(),
+      Markup: message,
+      From: auth.currentUser.displayName,
+      To: currentChat.Username,
+      RecipientID: userTwo,
+      SenderID: userOne,
+      CreatedAt: Timestamp.fromDate(new Date()),
+    };
+
+    await addDoc(collection(db, "chats", conversationID, "messages"), messageObject);
+    console.log("MESSAGE SENT")
+    
   };
 
   return (

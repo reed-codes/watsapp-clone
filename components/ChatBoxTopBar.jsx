@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
 import { IconButton, Button } from "@mui/material";
 import ViewSidebarOutlinedIcon from "@mui/icons-material/ViewSidebarOutlined";
@@ -11,20 +11,36 @@ const ChatBoxTopBar = (props) => {
     <Box className="h-[70px] bg-[#17212b] w-full fixed left-0 top-[30px] flex items-center justify-between border-l border-b border-solid border-gray-900">
       <Button
         className="h-full flex md:hidden text-white rounded-none"
-        sx = {{
-          borderRadius:0,
-          color:'#fff'
+        sx={{
+          borderRadius: 0,
+          color: "#fff",
         }}
         onClick={() => router.back()}
       >
-        <ArrowBackIcon  />
+        <ArrowBackIcon />
       </Button>
+
+      <Box className = "flex items-center justify-center lg:pl-4 ">
+        <Avatar
+          alt={props.currentChat.Username}
+          src={props.currentChat.ProfileImage}
+          sx={{
+            height: "45px",
+            width: "45px",
+            minWidth: "45px",
+            minHeight: "45px",
+          }}
+          component="span"
+        />
+      </Box>
 
       <Box
         className="flex flex-col justify-center flex-1 bg-[#17212b] cursor-pointer hover:brightness-90 active:brightness-75 px-4 h-full"
         onClick={props.toggleDrawer(true)}
       >
-        <Box className="font-bold text-[16px]">Skywalker</Box>
+        <Box className="font-bold text-[16px]">
+          {props.currentChat.Username}
+        </Box>
         <Box>last seen recently</Box>
       </Box>
 

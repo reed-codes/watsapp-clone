@@ -3,13 +3,11 @@ import { Box } from "@mui/material";
 import UserAccountsListWrapper from "../components/UserAccountsListWrapper";
 import SwipeableAppDrawer from "../components/SwipeableAppDrawer";
 import ChatPortal from "../components/ChatPortal";
+import { useCurrentChat } from "../components/Layout";
 
 export default function Home() {
+  const {currentChat} = useCurrentChat()
   const [openAppDrawer, setOpenAppDrawer] = useState(false);
-  const [openMediaUploader, setOpenMediaUploader] = useState(false);
-
-  const handleMediaUploaderOpen = () => setOpenMediaUploader(true);
-  const handleMediaUploaderClose = () => setOpenMediaUploader(false);
 
   const toggleAppDrawer = (state) => (event) => {
     if (
@@ -31,15 +29,7 @@ export default function Home() {
 
 
         <Box className="w-[73vw] hidden md:block">
-          <ChatPortal
-            onDragOver={handleMediaUploaderOpen}
-            handleMediaUploaderOpen={handleMediaUploaderOpen}
-            handleMediaUploaderClose={handleMediaUploaderClose}
-            openMediaUploader={openMediaUploader}
-          />
-
-          {/* <EmptyChatUI /> */}
-
+          { currentChat ? <ChatPortal/> :  <EmptyChatUI />  }
         </Box>
       </Box>
 
@@ -47,7 +37,6 @@ export default function Home() {
         openDrawer={openAppDrawer}
         toggleDrawer={toggleAppDrawer}
       />
-
     </>
   );
 }
