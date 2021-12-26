@@ -32,8 +32,7 @@ export default function SwipeableAppDrawer(props) {
   const [selectedImage, setSelectedImage] = useState("");
   const minWidth763px = useMediaQuery("(min-width:763px)");
   const { user, setUser } = useUser();
-  const m = moment( user ? new Date(user.JoinedDate) : new Date());
-
+  const m = moment(user ? new Date(user.JoinedDate) : new Date());
 
   const handleImageSelectionModalOpen = (role) => {
     setCurrentModal(role);
@@ -78,44 +77,57 @@ export default function SwipeableAppDrawer(props) {
             className="flex flex-col h-full bg-[#17212b]"
           >
             <Box className="flex flex-col h-full">
-              <Box className="w-full bg-blue-400 mb-2"
-                   sx = {{
-                    backgroundImage:`url(${(user && user.WallpaperImage) ? user.WallpaperImage : "#60a5fa" }) !important`,
-                    backgroundColor: !(user && user.WallpaperImage) ? "#60a5fa !important" : "none",
-                    backgroundSize:"30px"
-                   }}
-                   >
+              <Box
+                className="w-full bg-blue-400 mb-2"
+                sx={{
+                  backgroundImage: `url(${
+                    user && user.WallpaperImage
+                      ? user.WallpaperImage
+                      : "#60a5fa"
+                  }) !important`,
+                  backgroundColor: !(user && user.WallpaperImage)
+                    ? "#60a5fa !important"
+                    : "none",
+                  backgroundSize: "30px",
+                }}
+              >
                 <Box
                   className="w-full p-4"
-                  sx = {{backgroundColor:(user && user.WallpaperImage) ? 'rgba(0,0,0,.7)' : 'rgba(0,0,0,0)' }}
+                  sx={{
+                    backgroundColor:
+                      user && user.WallpaperImage
+                        ? "rgba(0,0,0,.7)"
+                        : "rgba(0,0,0,0)",
+                  }}
                 >
                   <Box className="w-full flex items-center justify-start lg:justify-center pb-4 pt-4 lg:p-4">
                     <Box component="span" className="relative">
                       <Avatar
                         alt={user ? user.Username : ""}
                         src={user && user.ProfileImage}
-                        className="bg-black rounded-full"
+                        className="bg-black rounded-full shadow-xl"
                         sx={{
                           height: minWidth763px ? "130px" : "90px",
                           width: minWidth763px ? "130px" : "90px",
                           background: "#000",
                         }}
                       />
-                      {auth.currentUser && auth.currentUser.photoURL !==
-                        (user && user.ProfileImage) && (
-                        <Avatar
-                          alt={user ? user.Username : ""}
-                          src={
-                            auth.currentUser ? auth.currentUser.photoURL : ""
-                          }
-                          className="bg-black rounded-full absolute bottom-1 right-1 shadow-xl"
-                          sx={{
-                            height: "30px",
-                            width: "30px",
-                            background: "#111",
-                          }}
-                        />
-                      )}
+                      {auth.currentUser &&
+                        auth.currentUser.photoURL !==
+                          (user && user.ProfileImage) && (
+                          <Avatar
+                            alt={user ? user.Username : ""}
+                            src={
+                              auth.currentUser ? auth.currentUser.photoURL : ""
+                            }
+                            className="bg-black rounded-full absolute bottom-1 right-1 shadow-xl"
+                            sx={{
+                              height: "30px",
+                              width: "30px",
+                              background: "#111",
+                            }}
+                          />
+                        )}
                     </Box>
                   </Box>
 

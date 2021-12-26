@@ -10,8 +10,17 @@ import MediaUploader from "./MediaUploader";
 import { useDropzone } from "react-dropzone";
 import { useCurrentChat } from "./Layout";
 import { auth, db } from "../firebase/client-app";
-import { setDoc, Timestamp, doc, collection, addDoc } from "firebase/firestore";
+import {
+  setDoc,
+  Timestamp,
+  doc,
+  collection,
+  addDoc,
+  refEqual,
+} from "firebase/firestore";
 import { v4 as uuid4 } from "uuid";
+import { storage } from "../firebase/client-app";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const ChatControls = (props) => {
   const { currentChat } = useCurrentChat();
@@ -75,8 +84,18 @@ const ChatControls = (props) => {
     } else props.handleMediaUploaderClose();
   };
 
+  const cleanUpMessage = () => {
+    if (!message) setMessage("");
+    if (files[0]) {
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+      setFiles([]);
+    }
+    if (record.blob) handleDiscardRecording();
+  };
+
   const handleSendRequest = async () => {
     // console.log(message, files, record);
+    const messageType = files[0] ? "IMAGE" : record.blob ? "AUDIO" : "TEXT";
     const userOne = auth.currentUser.uid;
     const userTwo = currentChat.ID;
     const conversationID =
@@ -84,19 +103,42 @@ const ChatControls = (props) => {
         ? userTwo + "-hey-jude-" + userOne
         : userOne + "-hey-jude-" + userTwo;
 
+    let url = "";
+    if (files[0]) {
+      const fileRef = ref(
+        storage,
+        `${conversationID}/images/${files[0].name}-${new Date().getTime()}`
+      );
+      const snap = await uploadBytes(fileRef, files[0]);
+      url = await getDownloadURL(ref(storage, snap.ref.fullPath));
+    } else if (record.blob) {
+      const fileRef = ref(
+        storage,
+        `${conversationID}/audio/voice-note-${new Date().getTime()}`
+      );
+      const snap = await uploadBytes(fileRef, record.blob);
+      url = await getDownloadURL(ref(storage, snap.ref.fullPath));
+    }
+
     const messageObject = {
-      ID:uuid4(),
+      ID: uuid4(),
       Markup: message,
       From: auth.currentUser.displayName,
       To: currentChat.Username,
       RecipientID: userTwo,
       SenderID: userOne,
       CreatedAt: Timestamp.fromDate(new Date()),
+      MediaURL: url ? url : "",
+      MediaType: messageType,
     };
 
-    await addDoc(collection(db, "chats", conversationID, "messages"), messageObject);
-    console.log("MESSAGE SENT")
-    
+    await addDoc(
+      collection(db, "chats", conversationID, "messages"),
+      messageObject
+    );
+
+    cleanUpMessage();
+    console.log("MESSAGE SENT");
   };
 
   return (

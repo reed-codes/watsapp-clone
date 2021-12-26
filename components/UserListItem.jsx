@@ -54,10 +54,10 @@ const UserListItem = (props) => {
 
         <Box className="flex flex-col justify-center h-full flex-1 relative overflow-hidden border-b border-solid border-[#0c111899]">
           <Box className="flex justify-between">
-            <Box className="normal-case truncate font-bold">
+            <Box className="normal-case truncate font-bold pr-1">
               {props.user.Username}
             </Box>
-            <Box className="w-[45px] min-w-[45px] opacity-50 font-thin">
+            <Box className="w-[45px] min-w-[45px] opacity-50 font-thin text-[10px] h-full flex items-center justify-center">
               16:22
             </Box>
           </Box>
