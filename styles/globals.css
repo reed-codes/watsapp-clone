@@ -89,3 +89,7 @@ canvas {
     opacity: 1;
   }
 }
+
+#wallpaper-demo-canvas{
+  background-size: 70px !important;
+}

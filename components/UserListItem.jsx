@@ -52,7 +52,7 @@ const UserListItem = (props) => {
           </Box>
         </Box>
 
-        <Box className="flex flex-col justify-center h-full flex-1 relative overflow-hidden">
+        <Box className="flex flex-col justify-center h-full flex-1 relative overflow-hidden border-b border-solid border-[#0c111899]">
           <Box className="flex justify-between">
             <Box className="normal-case truncate font-bold">
               {props.user.Username}
