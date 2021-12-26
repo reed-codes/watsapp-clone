@@ -74,22 +74,75 @@ canvas {
   width: 100%;
 }
 
-
-.fade-in{
+.fade-in {
   opacity: 0;
   animation-name: fadein;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
-  animation-duration: .5s;
+  animation-duration: 0.5s;
 }
 
 @keyframes fadein {
-  to{
+  to {
     opacity: 1;
   }
 }
 
-#wallpaper-demo-canvas{
+#wallpaper-demo-canvas {
   background-size: 70px !important;
+}
+
+.rhap_main-controls-button {
+  color: #fff !important;
+}
+.rhap_progress-filled {
+  background: #fff !important;
+}
+.rhap_progress-indicator {
+  background: #3c69a2 !important;
+}
+.rhap_container {
+  min-width: 290px;
+  box-shadow: none !important;
+}
+
+.rhap_time {
+  color: #fff !important;
+  font-size: 13px !important;
+}
+
+.rhap_repeat-button,
+.rhap_volume-container {
+  display: none !important;
+}
+
+.rhap_progress-filled {
+  background-color: #0c1118 !important;
+}
+
+.rhap_download-progress,
+.rhap_progress-indicator {
+  background-color: #242f3d !important;
+}
+.rhap_progress-container {
+  margin-left: 30px !important;
+  margin-right: 30px !important;
+}
+
+.rhap_progress-bar-show-download {
+  background-color: rgb(96 165 250) !important;
+}
+
+.rhap_container {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.rhap_progress-indicator {
+  border: 1px #555c63 solid !important;
+  width: 15px !important;
+  height: 15px !important;
+  top: -5px !important;
+  box-shadow: none !important;
 }

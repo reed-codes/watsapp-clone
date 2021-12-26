@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
+import 'react-h5-audio-player/lib/styles.css';
 // import { store } from '../state/store'
 // import { Provider } from 'react-redux'
 import RouterIdicator from '../state/context/RouterIdicator'
