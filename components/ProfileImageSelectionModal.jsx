@@ -61,7 +61,7 @@ export default function ProfileImageSelectionModal(props) {
         </Box>
 
         <Box className="w-full p-4 flex justify-center">
-          {auth.currentUser && (
+          {(auth.currentUser && props.user) && (
             <Avatar
               alt={auth.currentUser.displayName}
               src={

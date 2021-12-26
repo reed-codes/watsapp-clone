@@ -11,6 +11,7 @@ import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import ProfileImageSelectionModal from "./ProfileImageSelectionModal";
 import WallpaperImageSelectionModal from "./WallpaperImageSelectionModal";
 import { auth } from "../firebase/client-app";
+import moment from "moment";
 
 const BTN_STYLE = {
   justifyContent: "flex-start",
@@ -31,6 +32,8 @@ export default function SwipeableAppDrawer(props) {
   const [selectedImage, setSelectedImage] = useState("");
   const minWidth763px = useMediaQuery("(min-width:763px)");
   const { user, setUser } = useUser();
+  const m = moment( user ? new Date(user.JoinedDate) : new Date());
+
 
   const handleImageSelectionModalOpen = (role) => {
     setCurrentModal(role);
@@ -125,8 +128,12 @@ export default function SwipeableAppDrawer(props) {
                   >
                     {user && user.Username}
                   </Typography>
-                  <Typography className="text-[13px] opacity-80">
+                  <Typography className="text-[15px]">
                     {user && user.Email}
+                  </Typography>
+
+                  <Typography className="text-[10px] opacity-80">
+                    Joined {m.fromNow()}
                   </Typography>
                 </Box>
               </Box>
