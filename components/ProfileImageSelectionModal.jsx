@@ -122,7 +122,7 @@ export default function ProfileImageSelectionModal(props) {
             </Button>
           )}
 
-          {props.user && props.user.ProfileImage === props.selectedImage ? (
+          {props.user && (props.selectedImage === props.user.ProfileImage) ? (
             <Button
               className="font-bold h-full opacity-50 text-[13px]"
               onClick={props.clearSelection}

@@ -26,6 +26,7 @@
     "react-dom": "17.0.2",
     "react-dropzone": "^11.4.2",
     "react-firebase-hooks": "^3.0.4",
+    "react-html-parser": "^2.0.2",
     "react-input-emoji": "^4.0.9",
     "react-media-recorder": "^1.6.3",
     "react-mp3-recorder": "^1.1.2",
@@ -33,7 +34,8 @@
     "react-spinners-kit": "^1.9.1",
     "redux": "^4.1.1",
     "styled-components": "^5.3.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "wave-visualizer": "^1.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.7",

@@ -5,7 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import StopIcon from "@mui/icons-material/Stop";
-import VoiceNoteAudioPlayer from "./VoiceNoteAudioPlayer";
+import VoiceNoteAudioPreviewPlayer from "./VoiceNoteAudioPreviewPlayer";
 
 const RecordPanel = ({ handleDiscardRecording, record, send }) => {
   const [playing, setPlaying] = useState(false);
@@ -43,9 +43,8 @@ const RecordPanel = ({ handleDiscardRecording, record, send }) => {
               </IconButton>
 
               {playing ? (
-                <VoiceNoteAudioPlayer
+                <VoiceNoteAudioPreviewPlayer
                     url = {record.blobUrl}
-                    recording
                     />
               ) : (
                 <Box className="w-[75%] h-[1px] bg-[#fff] w-[85px] md:min-w-[185px] w-[100px] md:min-w-[300px] mr-3 animate-pulse" />

@@ -44,7 +44,17 @@ const ChatBoxTopBar = (props) => {
         <Box className="font-bold text-[16px]">
           {props.currentChat.Username}
         </Box>
-        <Box className="text-[13px] opacity-70">last seen {m.fromNow()}</Box>
+        <Box
+          className="text-[13px] opacity-70"
+          sx={{
+            color: props.currentChat.IsOnline ? "#50dbfc" : "#fff",
+          }}
+        >
+          {" "}
+          {props.currentChat.IsOnline
+            ? "online"
+            : "last seen " + m.fromNow()}{" "}
+        </Box>
       </Box>
 
       <Box className="px-4">

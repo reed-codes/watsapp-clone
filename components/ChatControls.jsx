@@ -85,7 +85,7 @@ const ChatControls = (props) => {
   };
 
   const cleanUpMessage = () => {
-    if (!message) setMessage("");
+    if (message) setMessage("");
     if (files[0]) {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
       setFiles([]);
@@ -129,7 +129,7 @@ const ChatControls = (props) => {
       SenderID: userOne,
       CreatedAt: Timestamp.fromDate(new Date()),
       MediaURL: url ? url : "",
-      MediaType: messageType,
+      Type: messageType,
     };
 
     await addDoc(
@@ -138,6 +138,7 @@ const ChatControls = (props) => {
     );
 
     cleanUpMessage();
+
     console.log("MESSAGE SENT");
   };
 

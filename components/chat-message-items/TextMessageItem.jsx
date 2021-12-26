@@ -1,14 +1,12 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import MessageWrapper from "./common/MessageWrapper";
+import ReactHtmlParser from "react-html-parser";
 
-const TextMessageItem = () => {
+const TextMessageItem = (props) => {
   return (
-  <MessageWrapper>
-        <Typography>
-          It’s glitter and it’s supposed to be a crown 🙄 But she took forever -
-          slowly starting to give up on my love for nails honestly
-        </Typography>
+    <MessageWrapper {...props}>
+      <Typography>{ReactHtmlParser(props.message.Markup)}</Typography>
     </MessageWrapper>
   );
 };

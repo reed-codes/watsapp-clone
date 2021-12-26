@@ -7,16 +7,16 @@ const VoiceNoteAudioPlayer = (props) => {
   return (
     <Box>
       <audio
-        id = { (props.recording) ? "recording-audio-element" : "voice-note-audio-element" }
+        id = { "recording-audio-element" }
         className="hidden"
         src={props.url}
         loop
       />
       <AudioSpectrum
-        id = { (props.recording) ? "recording-audio-canvas" : "voice-note-audio-canvas" }
+        id = { "recording-audio-canvas" }
         height={20}
         width={200}
-        audioId= {(props.recording) ? "recording-audio-element" : "voice-note-audio-element"}
+        audioId= {"recording-audio-element"}
         capHeight={2}
         meterWidth={2}
         meterCount={612}
