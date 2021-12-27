@@ -98,9 +98,9 @@ const UserListItem = (props) => {
             className="normal-case w-full truncate relative pr-5"
             sx={{
               pl: data?.MediaURL && data?.Type === "IMAGE" ? "25px" : 0,
-              opacity: data?.Unread ? 1 : 0.5,
-              color: data?.Unread ? "#7ac2eb" : "inherit",
-              fontWeight: data?.Unread ? "bold" : "light",
+              opacity: ((data?.Unread) && (auth.currentUser.uid !== data?.SenderID)) ? 1 : 0.5,
+              color: ((data?.Unread) && (auth.currentUser.uid !== data?.SenderID)) ? "#7ac2eb" : "inherit",
+              fontWeight: ((data?.Unread) && (auth.currentUser.uid !== data?.SenderID)) ? "bold" : "light",
             }}
           >
             {data?.MediaURL && data.Type === "IMAGE" && (

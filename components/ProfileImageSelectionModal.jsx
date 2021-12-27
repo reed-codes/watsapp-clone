@@ -24,15 +24,15 @@ export default function ProfileImageSelectionModal(props) {
       .catch((err) => console.log(err.message));
   }, []);
 
-  const handleUpdateProfileImage = async ()=>{
+  const handleUpdateProfileImage = async () => {
     const docRef = doc(db, "users", auth.currentUser.uid);
-    await updateDoc(docRef, { ProfileImage: props.selectedImage })
+    await updateDoc(docRef, { ProfileImage: props.selectedImage });
     props.setUser({
-          ...props.user,
-          ProfileImage: props.selectedImage
-    })
-    props.clearSelection()
-  }
+      ...props.user,
+      ProfileImage: props.selectedImage,
+    });
+    props.clearSelection();
+  };
 
   return (
     <Modal
@@ -61,7 +61,7 @@ export default function ProfileImageSelectionModal(props) {
         </Box>
 
         <Box className="w-full p-4 flex justify-center">
-          {(auth.currentUser && props.user) && (
+          {auth.currentUser && props.user && (
             <Avatar
               alt={auth.currentUser.displayName}
               src={
@@ -114,27 +114,27 @@ export default function ProfileImageSelectionModal(props) {
                   }}
                 />
               }
-              onClick={(e) =>
-                props.selectImage(auth.currentUser.photoURL)
-              }
+              onClick={(e) => props.selectImage(auth.currentUser.photoURL)}
             >
               Use my Google profile image
             </Button>
           )}
 
-          {props.user && (props.selectedImage === props.user.ProfileImage) ? (
-            <Button
-              className="font-bold h-full opacity-50 text-[13px]"
-              onClick={props.clearSelection}
-            >
-              Close
-            </Button>
-          ) : (
+          {props.user &&
+          props.selectedImage !== props.user.ProfileImage &&
+          Boolean(props.selectedImage) ? (
             <Button
               className="font-bold h-full text-[13px]"
               onClick={handleUpdateProfileImage}
             >
               Confirm change
+            </Button>
+          ) : (
+            <Button
+              className="font-bold h-full opacity-50 text-[13px]"
+              onClick={props.clearSelection}
+            >
+              Close
             </Button>
           )}
         </Box>

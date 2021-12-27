@@ -46,7 +46,7 @@ const markMessagesAsRead = async (docRefs, conversationID) => {
   console.log("LAST MESSAGE SEEN UPDATE DONE");
 };
 
-const ChatPortal = (props) => {
+const ChatPortal = () => {
   const { currentChat } = useCurrentChat();
   const [messages, setMessages] = useState([]);
   const [openMediaUploader, setOpenMediaUploader] = useState(false);
@@ -114,7 +114,6 @@ const ChatPortal = (props) => {
         onDragOver={handleMediaUploaderOpen}
       >
         <ChatBoxTopBar
-          {...props}
           toggleDrawer={toggleChatDrawer}
           currentChat={currentChat}
         />

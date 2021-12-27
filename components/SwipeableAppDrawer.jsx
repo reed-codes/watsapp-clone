@@ -15,7 +15,7 @@ import moment from "moment";
 import { useCurrentChat } from "./Layout";
 
 const BTN_STYLE = {
-  justifyContent: "flex-start",
+  justifyContent: "flex-start", 
   fontWeight: "bold",
   color: "#fff",
   borderRadius: 0,
@@ -98,7 +98,7 @@ export default function SwipeableAppDrawer(props) {
                   sx={{
                     backgroundColor:
                       user && user.WallpaperImage
-                        ? "rgba(0,0,0,.7)"
+                        ? "rgba(0,0,0,.8)"
                         : "rgba(0,0,0,0)",
                   }}
                 >
