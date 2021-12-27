@@ -10,6 +10,7 @@ import MediaUploader from "./MediaUploader";
 import { useDropzone } from "react-dropzone";
 import { useCurrentChat } from "./Layout";
 import { send } from "../lib/send-message";
+import SendingInProgressPanel from "./SendingInProgressPanel";
 
 const ChatControls = (props) => {
   const { currentChat } = useCurrentChat();
@@ -19,6 +20,10 @@ const ChatControls = (props) => {
     blobUrl: "",
     blob: null,
   });
+  const [SENDING, setSendingInProgress] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const messageType =
+    (record.blob && "AUDIO") || (files[0] && "IMAGE") || "TEXT";
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png",
@@ -80,15 +85,21 @@ const ChatControls = (props) => {
       setFiles([]);
     }
     if (record.blob) handleDiscardRecording();
+
+    setSendingInProgress(false);
   };
 
   const handleSendRequest = () => {
+    setSendingInProgress(true);
+
     const UPLOAD_TASK_DEPENDECIES = {
       closeUploadModal: props.handleMediaUploaderClose,
       currentChat,
       imageFile: files[0],
       audioFile: record,
       textMessage: message,
+      clearTextInput: setMessage,
+      setProgress: setUploadProgress,
       cleanUp: cleanUpMessage,
     };
     send(UPLOAD_TASK_DEPENDECIES);
@@ -100,6 +111,14 @@ const ChatControls = (props) => {
         className="w-full fixed bottom-0 left-0 flex items-center gap-1 px-4 py-2 bg-[#17212b] border-l border-t border-solid border-gray-900"
         sx={{ transform: "translate(0,0)" }}
       >
+        {SENDING && messageType !== "TEXT" && (
+          <SendingInProgressPanel
+            preview={files[0]?.preview}
+            fileType={messageType}
+            progress={uploadProgress}
+          />
+        )}
+
         <IconButton
           className="min-w-[35px] min-h-[35px] opacity-50 hover:opacity-100"
           onClick={props.handleMediaUploaderOpen}

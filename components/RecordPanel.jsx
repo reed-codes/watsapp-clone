@@ -55,7 +55,7 @@ const RecordPanel = ({ handleDiscardRecording, record, send }) => {
 
         <Box className="w-[35px] h-[35px] min-w-[35px] min-h-[35px] rounded-full  flex items-center justify-center">
           <IconButton
-            className="min-w-[35px] min-h-[35px] text-[#5187c0] hover:text-[#408af0] active:text-[#344a60]"
+            className="min-w-[35px] min-h-[35px]"
             onClick={send}
           >
             <SendIcon className="text-[20px]" />

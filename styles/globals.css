@@ -146,3 +146,20 @@ canvas {
   top: -5px !important;
   box-shadow: none !important;
 }
+
+
+/*  */
+#upload-progress-indicator-line{
+  background: #5fa3f8;
+  animation-name: puls-glow;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes puls-glow {
+    to{
+       background:#b8d7fd
+    }
+}

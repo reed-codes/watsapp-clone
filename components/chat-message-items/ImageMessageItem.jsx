@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import MessageWrapper from "./common/MessageWrapper";
 import ReactHtmlParser from "react-html-parser";
+import { scrollToLatestMessage } from "../../lib/scroll-for-new-message";
 
 const ImageMessageItem = (props) => {
   return (
@@ -11,6 +12,7 @@ const ImageMessageItem = (props) => {
         <img
           src={props.message.MediaURL}
           className="w-full pointer-events-none"
+          onLoad={scrollToLatestMessage}
         />
         <Typography className="p-4 pb-8">
           {ReactHtmlParser(props.message.Markup)}
