@@ -31,7 +31,7 @@ const ChatPortal = () => {
   const [openMediaUploader, setOpenMediaUploader] = useState(false);
   const [openChatDrawer, setOpenChatDrawer] = useState(false);
 
-  const userOne = auth.currentUser.uid;
+  const userOne = (auth.currentUser ? auth.currentUser.uid : "") ;
   const userTwo = currentChat.ID;
   const conversationID =
     userOne > userTwo
@@ -112,7 +112,7 @@ const ChatPortal = () => {
                   <TextMessageItem
                     key={message.ID}
                     message={message}
-                    self={message.SenderID === auth.currentUser.uid}
+                    self={message.SenderID === (auth.currentUser ? auth.currentUser.uid : "") }
                   />
                 );
               else if (message.Type === "IMAGE")
@@ -120,7 +120,7 @@ const ChatPortal = () => {
                   <ImageMessageitem
                     key={message.ID}
                     message={message}
-                    self={message.SenderID === auth.currentUser.uid}
+                    self={message.SenderID === (auth.currentUser ? auth.currentUser.uid : "") }
                   />
                 );
               else if (message.Type === "AUDIO")
@@ -128,7 +128,7 @@ const ChatPortal = () => {
                   <AudioMessageItem
                     key={message.ID}
                     message={message}
-                    self={message.SenderID === auth.currentUser.uid}
+                    self={message.SenderID === (auth.currentUser ? auth.currentUser.uid : "") }
                   />
                 );
             })}
