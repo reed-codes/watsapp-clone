@@ -9,12 +9,17 @@ const MessageWrapper = (props) => {
   const m = moment(new Date(props.message.CreatedAt.toDate()));
   const timestamp = m.format("hh:mm a");
 
+  const isImage = props.message.Type === "IMAGE";
+
   return (
     <Box className={`w-full mb-2 flex justify-${props.self ? "end" : "start"}`}>
       <Box
         className={`shadow-2xl max-w-[65%] min-w-[140px] md:max-w-[430px] relative p-4 ${
           props.self ? "bg-[#3c69a2]" : "bg-[#141f2a]"
-        } text-white rounded pb-[35px]`}
+        } text-white rounded overflow-auto pb-[35px]`}
+        sx={{
+          padding: isImage ? "0 !important" : "16px",
+        }}
       >
         {props.children}
 

@@ -65,11 +65,6 @@ const ChatPortal = () => {
     return () => unsubscriber();
   }, [currentChat]);
 
-  useEffect(() => {
-    document.querySelector("#scroll-into-view-stub").scrollIntoView({
-      behavior: "smooth",
-    });
-  }, [messages]);
 
   useEffect(() => {
     const q = query(
@@ -164,7 +159,12 @@ const getUnreadMessages = async (query, conversationID) => {
     doc(db, `chats/${conversationID}/messages/${docID}`)
   );
 
-  if (refs.length == 0) return;
+  if (refs.length == 0) {
+    document.querySelector("#scroll-into-view-stub").scrollIntoView({
+      behavior: "smooth",
+    });
+    return
+  };
 
   markMessagesAsRead(refs, conversationID);
 };
@@ -177,6 +177,10 @@ const markMessagesAsRead = async (docRefs, conversationID) => {
   const lastMessageRef = doc(db, `last-messages/${conversationID}`);
   await updateDoc(lastMessageRef, { Unread: false });
   console.log("LAST MESSAGE SEEN UPDATE DONE");
+
+  document.querySelector("#scroll-into-view-stub").scrollIntoView({
+    behavior: "smooth",
+  });
 };
 
 

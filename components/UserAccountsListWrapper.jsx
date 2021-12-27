@@ -9,7 +9,8 @@ const UserAccountsListWrapper = ({ toggleDrawer, users }) => {
   const accounts = users.filter(
     (user) => user.ID !== (currentUser ? currentUser.ID : "")
   );
-
+  console.log("UserAccountsListWrapper RENDER")
+  
   return (
     <Box>
       <UserAccountsListWrapperTopBar toggleDrawer={toggleDrawer} />

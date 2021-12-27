@@ -23,6 +23,7 @@ export default function UserContextComp({ children }) {
             Username: person.displayName,
             ID: person.uid,
             ProfileImage: person.photoURL,
+            GooglePhotoURL:person.photoURL,
             WallpaperImage: "",
             JoinedDate: ( new Date() ).getTime(),
             LastSignInTime: person.metadata.lastSignInTime,

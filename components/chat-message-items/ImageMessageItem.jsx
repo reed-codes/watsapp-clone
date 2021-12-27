@@ -12,7 +12,7 @@ const ImageMessageItem = (props) => {
           src={props.message.MediaURL}
           className="w-full pointer-events-none"
         />
-        <Typography className="pt-4">
+        <Typography className="p-4 pb-8">
           {ReactHtmlParser(props.message.Markup)}
         </Typography>
       </Box>

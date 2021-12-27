@@ -90,7 +90,7 @@ export default function SwipeableAppDrawer(props) {
                   backgroundColor: !(user && user.WallpaperImage)
                     ? "#60a5fa !important"
                     : "none",
-                  backgroundSize: "30px",
+                  backgroundSize: "10px",
                 }}
               >
                 <Box

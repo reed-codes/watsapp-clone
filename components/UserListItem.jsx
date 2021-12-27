@@ -89,7 +89,7 @@ const UserListItem = (props) => {
             <Box className="normal-case truncate font-bold pr-1">
               {props.user && props.user.Username}
             </Box>
-            <Box className="w-[65px] min-w-[45px] opacity-50 font-thin text-[10px] h-full flex items-center justify-center">
+            <Box className="w-[65px] min-w-[60px] opacity-50 font-thin text-[10px] h-full flex items-center justify-center">
               {timestamp}
             </Box>
           </Box>
