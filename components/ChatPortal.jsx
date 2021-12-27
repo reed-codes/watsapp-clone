@@ -82,14 +82,13 @@ const ChatPortal = () => {
   }, [messages]);
 
 
-  console.log(user)
   return (
     <>
       <Box
         className="h-screen w-full pt-[100px] pb-[55px] relative bg-[#0c1118]"
         sx={{
           transform: "translate(0,0)",
-          backgroundImage: `url(${user.WallpaperImage})`,
+          backgroundImage: `url(${user?.WallpaperImage})`,
           backgroundSize: "70px",
         }}
         onDragOver={handleMediaUploaderOpen}
@@ -97,7 +96,7 @@ const ChatPortal = () => {
         <Box
           className="h-full w-full"
           sx={{
-            background:user.WallpaperImage ? "rgba(0,0,0,.8)" : "#0c1118"
+            background:user?.WallpaperImage ? "rgba(0,0,0,.8)" : "#0c1118"
           }}
         >
           <ChatBoxTopBar
