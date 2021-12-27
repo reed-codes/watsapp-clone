@@ -65,8 +65,8 @@ const UserListItem = (props) => {
       <Box className="flex items-center text-white gap-3 overflow-hidden px-4 w-full h-full">
         <Box className="relative">
           <Avatar
-            alt={props.user.Username}
-            src={props.user.ProfileImage}
+            alt={props.user ? props.user.Username : ""}
+            src={props.user ? props.user.ProfileImage : ""}
             sx={{
               height: "54px",
               width: "54px",
@@ -78,7 +78,7 @@ const UserListItem = (props) => {
 
           <Box
             className="bg-[#63b3fa] h-[8px] w-[8px] rounded-full absolute right-[3px] bottom-[5px]"
-            sx={{ display: props.user.IsOnline ? "block" : "none" }}
+            sx={{ display: (props.user && props.user.IsOnline) ? "block" : "none" }}
           >
             <Box className="h-full w-full bg-[cyan] rounded-full animate-pulse" />
           </Box>
@@ -87,7 +87,7 @@ const UserListItem = (props) => {
         <Box className="flex flex-col justify-center h-full flex-1 relative overflow-hidden border-b border-solid border-[#0c111899]">
           <Box className="flex justify-between">
             <Box className="normal-case truncate font-bold pr-1">
-              {props.user.Username}
+              {props.user && props.user.Username}
             </Box>
             <Box className="w-[65px] min-w-[45px] opacity-50 font-thin text-[10px] h-full flex items-center justify-center">
               {timestamp}
