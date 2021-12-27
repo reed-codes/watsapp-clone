@@ -13,7 +13,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 
 const UserListItem = (props) => {
-  const { currentChat, setCurrentChat } = useCurrentChat();
+  const { currentChat, setCurrentChat, messageSentFlag } = useCurrentChat();
   const [data, setData] = useState(null);
   const router = useRouter();
   const minWidth768px = useMediaQuery("(min-width:763px)");
@@ -48,13 +48,13 @@ const UserListItem = (props) => {
 
     const unsubscriber = onSnapshot(
       doc(db, "last-messages", conversationID),
-      (doc) => {
-        setData(doc.data());
+      (res) => {
+        setData(res.data());
       }
     );
 
     return () => unsubscriber();
-  }, [db]);
+  }, [messageSentFlag]);
 
   return (
     <Button
@@ -106,7 +106,7 @@ const UserListItem = (props) => {
             {data?.MediaURL && data.Type === "IMAGE" && (
               <img
                 className="h-[20px] w-[20px] mr-4 absolute left-0 top-[2px]"
-                src={data?.MediaURL}
+                src={data?.MediaURL + "&size=20"}
               />
             )}
             {data?.MediaURL && data.Type === "AUDIO" && (
@@ -118,23 +118,24 @@ const UserListItem = (props) => {
 
             {data?.Markup}
 
-            {data?.Unread ? (
-              <DoneIcon
-                className="h-[15px] w-[15px] text-[#84bbfe] absolute right-1 top-1 z-10"
-                sx={{
-                  width: "15px",
-                  height: "15px",
-                }}
-              />
-            ) : (
-              <DoneAllIcon
-                className="h-[15px] w-[15px] text-[#84bbfe] absolute right-1 top-1 z-10"
-                sx={{
-                  width: "15px",
-                  height: "15px",
-                }}
-              />
-            )}
+            {auth.currentUser.uid === data?.SenderID &&
+              (data?.Unread ? (
+                <DoneIcon
+                  className="h-[15px] w-[15px] text-[#84bbfe] absolute right-1 top-1 z-10"
+                  sx={{
+                    width: "15px",
+                    height: "15px",
+                  }}
+                />
+              ) : (
+                <DoneAllIcon
+                  className="h-[15px] w-[15px] text-[#84bbfe] absolute right-1 top-1 z-10"
+                  sx={{
+                    width: "15px",
+                    height: "15px",
+                  }}
+                />
+              ))}
           </Box>
         </Box>
       </Box>

@@ -10,19 +10,13 @@ import MediaUploader from "./MediaUploader";
 import { useDropzone } from "react-dropzone";
 import { useCurrentChat } from "./Layout";
 import { auth, db } from "../firebase/client-app";
-import {
-  setDoc,
-  Timestamp,
-  doc,
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { setDoc, Timestamp, doc, collection, addDoc } from "firebase/firestore";
 import { v4 as uuid4 } from "uuid";
 import { storage } from "../firebase/client-app";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const ChatControls = (props) => {
-  const { currentChat } = useCurrentChat();
+  const { currentChat, setMessageSentFlag } = useCurrentChat();
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState([]);
   const [record, setRecord] = useState({
@@ -90,9 +84,11 @@ const ChatControls = (props) => {
       setFiles([]);
     }
     if (record.blob) handleDiscardRecording();
+
   };
 
   const handleSendRequest = async () => {
+    props.handleMediaUploaderClose();
     const messageType = files[0] ? "IMAGE" : record.blob ? "AUDIO" : "TEXT";
     const userOne = auth.currentUser.uid;
     const userTwo = currentChat.ID;
@@ -151,6 +147,7 @@ const ChatControls = (props) => {
 
     cleanUpMessage();
 
+    setMessageSentFlag({ sent: true });
     console.log("MESSAGE SENT");
   };
 

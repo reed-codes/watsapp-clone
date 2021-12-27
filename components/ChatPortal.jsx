@@ -16,6 +16,7 @@ import {
   query,
   where,
   writeBatch,
+  updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../firebase/client-app";
 
@@ -32,14 +33,17 @@ const getUnreadMessages = async (query, conversationID) => {
 
   if (refs.length == 0) return;
 
-  markMessagesAsRead(refs);
+  markMessagesAsRead(refs, conversationID);
 };
 
-const markMessagesAsRead = async (docRefs) => {
+const markMessagesAsRead = async (docRefs, conversationID) => {
   const batch = writeBatch(db);
   docRefs.forEach((ref) => batch.update(ref, { Unread: false }));
   await batch.commit();
   console.log("BACTCH UPDATE DONE");
+  const lastMessageRef = doc(db, `last-messages/${conversationID}`);
+  await updateDoc(lastMessageRef, { Unread: false });
+  console.log("LAST MESSAGE SEEN UPDATE DONE");
 };
 
 const ChatPortal = (props) => {

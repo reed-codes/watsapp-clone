@@ -6,6 +6,8 @@ const CurrentChat = createContext(null);
 
 export default function Layout(props) {
   const [currentChat, setCurrentChat] = useState("");
+  const [messageSentFlag, setMessageSentFlag] = useState(null);
+  
 
   useEffect(() => {
     try {
@@ -17,7 +19,7 @@ export default function Layout(props) {
   }, []);
 
   return (
-    <CurrentChat.Provider value={{ currentChat, setCurrentChat }}>
+    <CurrentChat.Provider value={{ currentChat, setCurrentChat, messageSentFlag, setMessageSentFlag }}>
       <Box className="h-[30px] w-full bg-[#242f3d] fixed top-0 z-10 left-0" />
       {props.children}
     </CurrentChat.Provider>

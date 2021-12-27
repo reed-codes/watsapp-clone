@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Avatar, Box } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
 import { IconButton, Button } from "@mui/material";
@@ -5,12 +6,28 @@ import ViewSidebarOutlinedIcon from "@mui/icons-material/ViewSidebarOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import moment from "moment";
+import { useCurrentChat } from "./Layout";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase/client-app";
 
 const ChatBoxTopBar = (props) => {
+  const [data, setData] = useState(null);
+  const { currentChat } = useCurrentChat();
   const router = useRouter();
-  const m = moment(new Date(props.currentChat.LastSeen));
+  const m = moment(new Date(data?.LastSeen));
 
-// console.log(props.currentChat)
+  useEffect(() => {
+    console.log("LAST SEEN effect triggered");
+
+    const userTwo = currentChat.ID;
+
+    const unsubscriber = onSnapshot(doc(db, "users", userTwo), (res) => {
+      setData(res.data());
+    });
+
+    return () => unsubscriber();
+  }, []);
+
 
   return (
     <Box className="h-[70px] bg-[#17212b] w-full fixed left-0 top-[30px] flex items-center justify-between border-l border-b border-solid border-gray-900">
@@ -27,8 +44,8 @@ const ChatBoxTopBar = (props) => {
 
       <Box className="flex items-center justify-center lg:pl-4 pr-2">
         <Avatar
-          alt={props.currentChat.Username}
-          src={props.currentChat.ProfileImage}
+          alt={data?.Username}
+          src={data?.ProfileImage}
           sx={{
             height: "45px",
             width: "45px",
@@ -43,19 +60,15 @@ const ChatBoxTopBar = (props) => {
         className="flex flex-col justify-center flex-1 bg-[#17212b] cursor-pointer hover:brightness-90 active:brightness-75 pr-4 pl-2 h-full"
         onClick={props.toggleDrawer(true)}
       >
-        <Box className="font-bold text-[16px]">
-          {props.currentChat.Username}
-        </Box>
+        <Box className="font-bold text-[16px]">{data?.Username}</Box>
         <Box
           className="text-[13px] opacity-70"
           sx={{
-            color: props.currentChat.IsOnline ? "#50dbfc" : "#fff",
+            color: data?.IsOnline ? "#50dbfc" : "#fff",
           }}
         >
           {" "}
-          {props.currentChat.IsOnline
-            ? "online"
-            : "last seen " + m.fromNow()}{" "}
+          {data?.IsOnline ? "online" : "last seen " + m.fromNow()}{" "}
         </Box>
       </Box>
 

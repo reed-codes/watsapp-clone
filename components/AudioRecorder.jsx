@@ -53,9 +53,10 @@ const RecordingPanel = ({ stopRecording, status }) => {
 
   return (
     <>
-      <Box className="fixed left-0 top-0 w-full h-full bg-[#17212b] flex gap-2 items-center px-4"
-           sx = {{display:'flex'}}
-           >
+      <Box
+        className="fixed left-0 top-0 w-full h-full bg-[#17212b] flex gap-2 items-center px-4"
+        sx={{ display: "flex" }}
+      >
         <Box className="flex flex-1 h-full">
           <Box className="h-full w-[70px] flex items-center justify-between">
             <Box className="h-[10px] w-[10px] bg-[#1976d2] rounded-full" />
@@ -65,17 +66,18 @@ const RecordingPanel = ({ stopRecording, status }) => {
           </Box>
 
           <Box className="h-full hidden md:flex flex-1 opacity-50 flex items-center justify-center">
-               Click the microphone icon to top recording
+            Click the microphone icon to stop recording
           </Box>
         </Box>
 
-        <Box className="w-[35px] h-[35px] min-w-[35px] min-h-[35px] rounded-full bg-pink-600 relative flex items-center justify-center"
-             sx = {{
-               display:'flex',
-               alignItems:'center',
-               justifyContent:'center'
-            }}
-             >
+        <Box
+          className="w-[35px] h-[35px] min-w-[35px] min-h-[35px] rounded-full bg-pink-600 relative flex items-center justify-center"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <MicNoneIcon
             className={`text-[20px] ${
               status === "recording" ? "opacity-100" : "opacity-150"
@@ -84,14 +86,14 @@ const RecordingPanel = ({ stopRecording, status }) => {
           <IconButton
             className="min-w-[35px] min-h-[35px] bg-pink-600 active:bg-[#1976d2] animate-ping origin-center"
             onClick={stopRecording}
-            sx = {{
-              position:'absolute',
-              zIndex:10,
-              top:0,
-              bottom:0,
-              left:0,
-              right:0,
-              padding:0
+            sx={{
+              position: "absolute",
+              zIndex: 10,
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: 0,
             }}
           >
             <MicNoneIcon className="text-[20px]" />
