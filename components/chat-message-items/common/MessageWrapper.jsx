@@ -12,7 +12,7 @@ const MessageWrapper = (props) => {
   return (
     <Box className={`w-full mb-2 flex justify-${props.self ? "end" : "start"}`}>
       <Box
-        className={`max-w-[65%] min-w-[140px] md:max-w-[430px] relative p-4 ${
+        className={`shadow-2xl max-w-[65%] min-w-[140px] md:max-w-[430px] relative p-4 ${
           props.self ? "bg-[#3c69a2]" : "bg-[#141f2a]"
         } text-white rounded pb-[35px]`}
       >
@@ -20,10 +20,8 @@ const MessageWrapper = (props) => {
 
         <Box className="w-full text-[12px] text-right absolute bottom-0 right-0 px-4 py-1 flex justify-end items-center gap-2">
           <Box className="opacity-50">{timestamp}</Box>
-          {
-            props.self && (
-
-              <IconButton>
+          {props.self && (
+            <IconButton>
               {props.message.Unread ? (
                 <DoneIcon
                   className="h-[15px] w-[15px] text-[#84bbfe]"
@@ -42,10 +40,7 @@ const MessageWrapper = (props) => {
                 />
               )}
             </IconButton>
-
-            )
-          }
-        
+          )}
         </Box>
       </Box>
     </Box>

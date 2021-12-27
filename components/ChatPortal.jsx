@@ -19,35 +19,14 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../firebase/client-app";
+import { useUser } from "../state/context/userContext";
 
-const getUnreadMessages = async (query, conversationID) => {
-  const querySnapshot = await getDocs(query);
-  let unreadDocs = [];
-  querySnapshot.forEach((doc) => {
-    unreadDocs.push(doc.id);
-  });
 
-  const refs = unreadDocs.map((docID) =>
-    doc(db, `chats/${conversationID}/messages/${docID}`)
-  );
 
-  if (refs.length == 0) return;
-
-  markMessagesAsRead(refs, conversationID);
-};
-
-const markMessagesAsRead = async (docRefs, conversationID) => {
-  const batch = writeBatch(db);
-  docRefs.forEach((ref) => batch.update(ref, { Unread: false }));
-  await batch.commit();
-  console.log("BACTCH UPDATE DONE");
-  const lastMessageRef = doc(db, `last-messages/${conversationID}`);
-  await updateDoc(lastMessageRef, { Unread: false });
-  console.log("LAST MESSAGE SEEN UPDATE DONE");
-};
 
 const ChatPortal = () => {
   const { currentChat } = useCurrentChat();
+  const {user} = useUser()
   const [messages, setMessages] = useState([]);
   const [openMediaUploader, setOpenMediaUploader] = useState(false);
   const [openChatDrawer, setOpenChatDrawer] = useState(false);
@@ -102,58 +81,67 @@ const ChatPortal = () => {
     getUnreadMessages(q, conversationID);
   }, [messages]);
 
+
+  console.log(user)
   return (
     <>
       <Box
-        className="h-screen w-full bg-[#0e1621] pt-[100px] pb-[55px] relative bg-[#0c1118]"
+        className="h-screen w-full pt-[100px] pb-[55px] relative bg-[#0c1118]"
         sx={{
           transform: "translate(0,0)",
-          // backgroundImage: "url(./wallpaper.jpg)",
-          // backgroundSize:'cover'
+          backgroundImage: `url(${user.WallpaperImage})`,
+          backgroundSize: "70px",
         }}
         onDragOver={handleMediaUploaderOpen}
       >
-        <ChatBoxTopBar
-          toggleDrawer={toggleChatDrawer}
-          currentChat={currentChat}
-        />
+        <Box
+          className="h-full w-full"
+          sx={{
+            background:user.WallpaperImage ? "rgba(0,0,0,.8)" : "#0c1118"
+          }}
+        >
+          <ChatBoxTopBar
+            toggleDrawer={toggleChatDrawer}
+            currentChat={currentChat}
+          />
 
-        <Box className="h-full w-full overflow-auto p-4">
-          {messages.map((message) => {
-            if (message.Type === "TEXT")
-              return (
-                <TextMessageItem
-                  key={message.ID}
-                  message={message}
-                  self={message.SenderID === auth.currentUser.uid}
-                />
-              );
-            else if (message.Type === "IMAGE")
-              return (
-                <ImageMessageitem
-                  key={message.ID}
-                  message={message}
-                  self={message.SenderID === auth.currentUser.uid}
-                />
-              );
-            else if (message.Type === "AUDIO")
-              return (
-                <AudioMessageItem
-                  key={message.ID}
-                  message={message}
-                  self={message.SenderID === auth.currentUser.uid}
-                />
-              );
-          })}
+          <Box className="h-full w-full overflow-auto p-4">
+            {messages.map((message) => {
+              if (message.Type === "TEXT")
+                return (
+                  <TextMessageItem
+                    key={message.ID}
+                    message={message}
+                    self={message.SenderID === auth.currentUser.uid}
+                  />
+                );
+              else if (message.Type === "IMAGE")
+                return (
+                  <ImageMessageitem
+                    key={message.ID}
+                    message={message}
+                    self={message.SenderID === auth.currentUser.uid}
+                  />
+                );
+              else if (message.Type === "AUDIO")
+                return (
+                  <AudioMessageItem
+                    key={message.ID}
+                    message={message}
+                    self={message.SenderID === auth.currentUser.uid}
+                  />
+                );
+            })}
 
-          <Box id="scroll-into-view-stub" />
+            <Box id="scroll-into-view-stub" />
+          </Box>
+
+          <ChatControls
+            handleMediaUploaderOpen={handleMediaUploaderOpen}
+            handleMediaUploaderClose={handleMediaUploaderClose}
+            openMediaUploader={openMediaUploader}
+          />
         </Box>
-
-        <ChatControls
-          handleMediaUploaderOpen={handleMediaUploaderOpen}
-          handleMediaUploaderClose={handleMediaUploaderClose}
-          openMediaUploader={openMediaUploader}
-        />
       </Box>
 
       <SwipeableChatDrawer
@@ -164,5 +152,34 @@ const ChatPortal = () => {
     </>
   );
 };
+
+
+const getUnreadMessages = async (query, conversationID) => {
+  const querySnapshot = await getDocs(query);
+  let unreadDocs = [];
+  querySnapshot.forEach((doc) => {
+    unreadDocs.push(doc.id);
+  });
+
+  const refs = unreadDocs.map((docID) =>
+    doc(db, `chats/${conversationID}/messages/${docID}`)
+  );
+
+  if (refs.length == 0) return;
+
+  markMessagesAsRead(refs, conversationID);
+};
+
+const markMessagesAsRead = async (docRefs, conversationID) => {
+  const batch = writeBatch(db);
+  docRefs.forEach((ref) => batch.update(ref, { Unread: false }));
+  await batch.commit();
+  console.log("BACTCH UPDATE DONE");
+  const lastMessageRef = doc(db, `last-messages/${conversationID}`);
+  await updateDoc(lastMessageRef, { Unread: false });
+  console.log("LAST MESSAGE SEEN UPDATE DONE");
+};
+
+
 
 export default ChatPortal;
