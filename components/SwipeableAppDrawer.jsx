@@ -12,6 +12,7 @@ import ProfileImageSelectionModal from "./ProfileImageSelectionModal";
 import WallpaperImageSelectionModal from "./WallpaperImageSelectionModal";
 import { auth } from "../firebase/client-app";
 import moment from "moment";
+import { useCurrentChat } from "./Layout";
 
 const BTN_STYLE = {
   justifyContent: "flex-start",
@@ -28,6 +29,7 @@ export default function SwipeableAppDrawer(props) {
     openWallpaperImageSelectionModal,
     setOpenWallpaperImageSelectionModal,
   ] = useState(false);
+  const { setCurrentChat } = useCurrentChat();
   const [currentModal, setCurrentModal] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const minWidth763px = useMediaQuery("(min-width:763px)");
@@ -179,7 +181,10 @@ export default function SwipeableAppDrawer(props) {
                   bottom: "120px",
                   left: 0,
                 }}
-                onClick={() => signOut()}
+                onClick={() => {
+                  setCurrentChat("");
+                  signOut();
+                }}
               >
                 Log out
               </Button>

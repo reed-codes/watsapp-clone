@@ -7,14 +7,53 @@ import AudioMessageItem from "./chat-message-items/AudioMessageItem";
 import ImageMessageitem from "./chat-message-items/ImageMessageItem";
 import SwipeableChatDrawer from "./SwipeableChatDrawer";
 import { useCurrentChat } from "./Layout";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+  writeBatch,
+} from "firebase/firestore";
 import { auth, db } from "../firebase/client-app";
 
+const getUnreadMessages = async (query, conversationID) => {
+  const querySnapshot = await getDocs(query);
+  let unreadDocs = [];
+  querySnapshot.forEach((doc) => {
+    unreadDocs.push(doc.id);
+  });
+
+  const refs = unreadDocs.map((docID) =>
+    doc(db, `chats/${conversationID}/messages/${docID}`)
+  );
+
+  if (refs.length == 0) return;
+
+  markMessagesAsRead(refs);
+};
+
+const markMessagesAsRead = async (docRefs) => {
+  const batch = writeBatch(db);
+  docRefs.forEach((ref) => batch.update(ref, { Unread: false }));
+  await batch.commit();
+  console.log("BACTCH UPDATE DONE");
+};
+
 const ChatPortal = (props) => {
-  const { currentChat, setCurrentChat } = useCurrentChat();
+  const { currentChat } = useCurrentChat();
   const [messages, setMessages] = useState([]);
   const [openMediaUploader, setOpenMediaUploader] = useState(false);
   const [openChatDrawer, setOpenChatDrawer] = useState(false);
+
+  const userOne = auth.currentUser.uid;
+  const userTwo = currentChat.ID;
+  const conversationID =
+    userOne > userTwo
+      ? userTwo + "-hey-jude-" + userOne
+      : userOne + "-hey-jude-" + userTwo;
 
   const handleMediaUploaderOpen = () => setOpenMediaUploader(true);
   const handleMediaUploaderClose = () => setOpenMediaUploader(false);
@@ -31,13 +70,6 @@ const ChatPortal = (props) => {
   };
 
   useEffect(() => {
-    const userOne = auth.currentUser.uid;
-    const userTwo = currentChat.ID;
-    const conversationID =
-      userOne > userTwo
-        ? userTwo + "-hey-jude-" + userOne
-        : userOne + "-hey-jude-" + userTwo;
-
     const messagesRef = collection(db, "chats", conversationID, "messages");
     const q = query(messagesRef, orderBy("CreatedAt", "asc"));
 
@@ -50,12 +82,20 @@ const ChatPortal = (props) => {
     return () => unsubscriber();
   }, [currentChat]);
 
-  console.log(messages);
-
   useEffect(() => {
     document.querySelector("#scroll-into-view-stub").scrollIntoView({
       behavior: "smooth",
     });
+  }, [messages]);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, `chats/${conversationID}/messages`),
+      where("RecipientID", "==", userOne),
+      where("Unread", "==", true)
+    );
+
+    getUnreadMessages(q, conversationID);
   }, [messages]);
 
   return (

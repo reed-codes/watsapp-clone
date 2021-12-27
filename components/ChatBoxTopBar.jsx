@@ -10,6 +10,8 @@ const ChatBoxTopBar = (props) => {
   const router = useRouter();
   const m = moment(new Date(props.currentChat.LastSeen));
 
+// console.log(props.currentChat)
+
   return (
     <Box className="h-[70px] bg-[#17212b] w-full fixed left-0 top-[30px] flex items-center justify-between border-l border-b border-solid border-gray-900">
       <Button

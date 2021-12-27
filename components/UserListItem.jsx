@@ -1,14 +1,26 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Box } from "@mui/material";
 import { Avatar } from "@mui/material";
 import { Button } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import { useCurrentChat } from "./Layout";
+import { onSnapshot, doc } from "firebase/firestore";
+import { auth, db } from "../firebase/client-app";
+import moment from "moment";
+import VolumeDownIcon from "@mui/icons-material/VolumeDown";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import DoneIcon from "@mui/icons-material/Done";
 
 const UserListItem = (props) => {
   const { currentChat, setCurrentChat } = useCurrentChat();
-  const minWidth768px = useMediaQuery("(min-width:763px)");
+  const [data, setData] = useState(null);
   const router = useRouter();
+  const minWidth768px = useMediaQuery("(min-width:763px)");
+  const m = moment(
+    new Date(data ? data.CreatedAt.toDate() : new Date().getTime())
+  );
+  const timestamp = m.format("hh:mm a");
 
   const handleAccountClick = () => {
     if (currentChat) {
@@ -23,6 +35,26 @@ const UserListItem = (props) => {
       router.push(`c/${props.user.ID}`);
     }
   };
+
+  useEffect(() => {
+    console.log("last message effect triggered");
+
+    const userOne = auth.currentUser.uid;
+    const userTwo = currentChat.ID;
+    const conversationID =
+      userOne > userTwo
+        ? userTwo + "-hey-jude-" + userOne
+        : userOne + "-hey-jude-" + userTwo;
+
+    const unsubscriber = onSnapshot(
+      doc(db, "last-messages", conversationID),
+      (doc) => {
+        setData(doc.data());
+      }
+    );
+
+    return () => unsubscriber();
+  }, [db]);
 
   return (
     <Button
@@ -57,14 +89,52 @@ const UserListItem = (props) => {
             <Box className="normal-case truncate font-bold pr-1">
               {props.user.Username}
             </Box>
-            <Box className="w-[45px] min-w-[45px] opacity-50 font-thin text-[10px] h-full flex items-center justify-center">
-              16:22
+            <Box className="w-[65px] min-w-[45px] opacity-50 font-thin text-[10px] h-full flex items-center justify-center">
+              {timestamp}
             </Box>
           </Box>
 
-          <Box className="normal-case w-full opacity-50 truncate">
-            Referring to himself as a "consulting detective" in the stories,
-            Holmes is known for his proficiency with
+          <Box
+            className="normal-case w-full truncate relative pr-5"
+            sx={{
+              pl: data?.MediaURL && data?.Type === "IMAGE" ? "25px" : 0,
+              opacity: data?.Unread ? 1 : 0.5,
+              color: data?.Unread ? "#7ac2eb" : "inherit",
+              fontWeight: data?.Unread ? "bold" : "light",
+            }}
+          >
+            {data?.MediaURL && data.Type === "IMAGE" && (
+              <img
+                className="h-[20px] w-[20px] mr-4 absolute left-0 top-[2px]"
+                src={data?.MediaURL}
+              />
+            )}
+            {data?.MediaURL && data.Type === "AUDIO" && (
+              <>
+                <VolumeDownIcon className="h-[20px] w-[20px] mr-1" />: Audio
+                file
+              </>
+            )}
+
+            {data?.Markup}
+
+            {data?.Unread ? (
+              <DoneIcon
+                className="h-[15px] w-[15px] text-[#84bbfe] absolute right-1 top-1 z-10"
+                sx={{
+                  width: "15px",
+                  height: "15px",
+                }}
+              />
+            ) : (
+              <DoneAllIcon
+                className="h-[15px] w-[15px] text-[#84bbfe] absolute right-1 top-1 z-10"
+                sx={{
+                  width: "15px",
+                  height: "15px",
+                }}
+              />
+            )}
           </Box>
         </Box>
       </Box>

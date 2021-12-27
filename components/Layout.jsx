@@ -7,13 +7,14 @@ const CurrentChat = createContext(null);
 export default function Layout(props) {
   const [currentChat, setCurrentChat] = useState("");
 
-  useEffect(()=>{
-    try{
-      window.addEventListener('beforeunload', signOut);
-    }catch(err){
-       console.log(err.message)
+  useEffect(() => {
+    try {
+      setCurrentChat("");
+      window.addEventListener("beforeunload", signOut);
+    } catch (err) {
+      console.log(err.message);
     }
-  },[])
+  }, []);
 
   return (
     <CurrentChat.Provider value={{ currentChat, setCurrentChat }}>

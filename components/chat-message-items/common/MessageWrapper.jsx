@@ -20,16 +20,32 @@ const MessageWrapper = (props) => {
 
         <Box className="w-full text-[12px] text-right absolute bottom-0 right-0 px-4 py-1 flex justify-end items-center gap-2">
           <Box className="opacity-50">{timestamp}</Box>
-          <IconButton>
-            <DoneAllIcon
-              className="h-[15px] w-[15px] text-[#84bbfe]"
-              sx={{
-                width: "15px",
-                height: "15px",
-              }}
-            />
-            {/* <DoneIcon className = "h-[15px] w-[15px] text-[#84bbfe]"/> */}
-          </IconButton>
+          {
+            props.self && (
+
+              <IconButton>
+              {props.message.Unread ? (
+                <DoneIcon
+                  className="h-[15px] w-[15px] text-[#84bbfe]"
+                  sx={{
+                    width: "15px",
+                    height: "15px",
+                  }}
+                />
+              ) : (
+                <DoneAllIcon
+                  className="h-[15px] w-[15px] text-[#84bbfe]"
+                  sx={{
+                    width: "15px",
+                    height: "15px",
+                  }}
+                />
+              )}
+            </IconButton>
+
+            )
+          }
+        
         </Box>
       </Box>
     </Box>

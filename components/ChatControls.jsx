@@ -16,7 +16,6 @@ import {
   doc,
   collection,
   addDoc,
-  refEqual,
 } from "firebase/firestore";
 import { v4 as uuid4 } from "uuid";
 import { storage } from "../firebase/client-app";
@@ -94,7 +93,6 @@ const ChatControls = (props) => {
   };
 
   const handleSendRequest = async () => {
-    // console.log(message, files, record);
     const messageType = files[0] ? "IMAGE" : record.blob ? "AUDIO" : "TEXT";
     const userOne = auth.currentUser.uid;
     const userTwo = currentChat.ID;
@@ -130,12 +128,26 @@ const ChatControls = (props) => {
       CreatedAt: Timestamp.fromDate(new Date()),
       MediaURL: url ? url : "",
       Type: messageType,
+      Unread: true,
     };
 
     await addDoc(
       collection(db, "chats", conversationID, "messages"),
       messageObject
     );
+
+    await setDoc(doc(db, "last-messages", conversationID), {
+      ID: uuid4(),
+      Markup: message,
+      From: auth.currentUser.displayName,
+      To: currentChat.Username,
+      RecipientID: userTwo,
+      SenderID: userOne,
+      CreatedAt: Timestamp.fromDate(new Date()),
+      MediaURL: url ? url : "",
+      Type: messageType,
+      Unread: true,
+    });
 
     cleanUpMessage();
 
