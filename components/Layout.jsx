@@ -1,5 +1,4 @@
 import { useState, createContext, useContext, useEffect } from "react";
-import { Box } from "@mui/material";
 import { signOut } from "../lib/sign-in-with-google";
 
 const CurrentChat = createContext(null);
@@ -26,7 +25,7 @@ export default function Layout(props) {
         TRIGGER_MESSAGE_SENT_UPDATE,
       }}
     >
-      <Box className="h-[30px] w-full bg-[#242f3d] fixed top-0 z-10 left-0" />
+      {/* <Box className="h-[30px] w-full bg-[#242f3d] fixed top-0 z-10 left-0 hidden md:block" /> */}
       {props.children}
     </CurrentChat.Provider>
   );

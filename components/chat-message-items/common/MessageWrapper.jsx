@@ -14,11 +14,12 @@ const MessageWrapper = (props) => {
   return (
     <Box className={`w-full mb-2 flex justify-${props.self ? "end" : "start"}`}>
       <Box
-        className={`shadow-2xl max-w-[65%] min-w-[140px] md:max-w-[430px] relative p-4 ${
+        className={`shadow-2xl min-w-[140px] md:max-w-[430px] relative ${
           props.self ? "bg-[#3c69a2]" : "bg-[#141f2a]"
-        } text-white rounded overflow-auto pb-[35px]`}
+        } text-white rounded overflow-auto`}
         sx={{
-          padding: isImage ? "0 !important" : "16px",
+          padding: isImage ? "0 !important" : "10px 16px 35px !important",
+          maxWidth: (props.message.Type === "AUDIO") ? "auto !important" : "65%"
         }}
       >
         {props.children}

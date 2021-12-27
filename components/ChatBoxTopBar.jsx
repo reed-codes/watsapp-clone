@@ -1,84 +1,117 @@
-import { useState, useEffect } from "react";
 import { Avatar, Box } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
-import { IconButton, Button } from "@mui/material";
+import { IconButton } from "@mui/material";
 import ViewSidebarOutlinedIcon from "@mui/icons-material/ViewSidebarOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import moment from "moment";
 import { useCurrentChat } from "./Layout";
 import withUsersMonitor from "../firebase/hocs/withUsersMonitor";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import moment from "moment";
 
 const ChatBoxTopBar = (props) => {
   const { currentChat } = useCurrentChat();
+  const maxWidth768px = useMediaQuery("(max-width:768px)");
   const router = useRouter();
   const m = moment(new Date(currentChat?.LastSeen));
 
-  console.log("ChatBoxTopBar RENDER")
-
   return (
-    <Box className="h-[70px] bg-[#17212b] w-full fixed left-0 top-[30px] flex items-center justify-between border-l border-b border-solid border-gray-900">
-      <Button
-        className="h-full flex md:hidden text-white rounded-none"
-        sx={{
-          borderRadius: 0,
-          color: "#fff",
-        }}
-        onClick={() => router.back()}
-      >
-        <ArrowBackIcon />
-      </Button>
+    <Box className="min-h-[70px] bg-[#17212b] w-full fixed z-[100] left-0 flex flex-col items-center justify-between border-l border-b border-solid border-gray-900">
+      <Box className="h-[30px] w-full bg-[#242f3d] hidden md:block" />
 
-      <Box className="flex items-center justify-center lg:pl-4 pr-2">
-        <Avatar
-          alt={currentChat?.Username}
-          src={currentChat?.ProfileImage}
-          sx={{
-            height: "45px",
-            width: "45px",
-            minWidth: "45px",
-            minHeight: "45px",
-          }}
-          component="span"
-        />
-      </Box>
+      <Box className="w-full flex items-center justify-between min-h-[70px]">
+        {maxWidth768px && (
+          <IconButton
+            className="flex text-white rounded-none"
+            sx={{
+              color: "#fff",
+              ml: "10px",
+              mr: "10px",
+            }}
+            onClick={() => router.back()}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        )}
 
-      <Box
-        className="flex flex-col justify-center flex-1 bg-[#17212b] cursor-pointer hover:brightness-90 active:brightness-75 pr-4 pl-2 h-full"
-        onClick={props.toggleDrawer(true)}
-      >
-        <Box className="font-bold text-[16px]">{currentChat?.Username}</Box>
-        <Box
-          className="text-[13px] opacity-70"
-          sx={{
-            color: currentChat?.IsOnline ? "#50dbfc" : "#fff",
-          }}
-        >
-          {" "}
-          {currentChat?.IsOnline ? "online" : "last seen " + m.fromNow()}{" "}
+        <Box className="flex items-center justify-center lg:pl-4 pr-2">
+          <Avatar
+            alt={currentChat?.Username}
+            src={currentChat?.ProfileImage}
+            sx={{
+              height: maxWidth768px ? "30px" : "45px",
+              width: maxWidth768px ? "30px" : "45px",
+              minWidth: "45px",
+              minHeight: "45px",
+              minWidth: maxWidth768px ? "20px" : "45px",
+              minHeight: maxWidth768px ? "20px" : "45px",
+            }}
+            component="span"
+            className = "pointer-events-none"
+          />
         </Box>
-      </Box>
 
-      <Box className="px-4">
-        <IconButton
-          className="md:opacity-50 hover:opacity-100"
-          aria-label="upload picture"
-          component="span"
+        <Box
+          className="flex flex-col justify-center flex-1 bg-[#17212b] cursor-pointer hover:brightness-90 active:brightness-75 pr-4 pl-2 h-full"
           onClick={props.toggleDrawer(true)}
         >
-          <ViewSidebarOutlinedIcon />
-        </IconButton>
+          <Box
+            className="font-bold w-full truncate py-1"
+            sx={{
+              fontSize: maxWidth768px ? "13px" : "16px",
+            }}
+          >
+            {currentChat?.Username}
+          </Box>
+          <Box
+            className="opacity-70"
+            sx={{
+              color: currentChat?.IsOnline ? "#50dbfc" : "#fff",
+              fontSize: maxWidth768px ? "10px" : "13px",
+            }}
+          >
+            {" "}
+            {currentChat?.IsOnline ? "online" : "last seen " + m.fromNow()}{" "}
+          </Box>
+        </Box>
 
-        <a href="https://github.com/reed-codes/watsapp-clone" target="_blank">
+        <Box
+          className="px-4 shadow-2xl"
+          sx={{
+            position: maxWidth768px ? "absolute" : "static",
+            right: 0,
+            top: 0,
+            zIndex: 100,
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            background: "#17212b",
+          }}
+        >
           <IconButton
             className="md:opacity-50 hover:opacity-100"
             aria-label="upload picture"
             component="span"
+            onClick={props.toggleDrawer(true)}
           >
-            <GitHubIcon />
+            <ViewSidebarOutlinedIcon />
           </IconButton>
-        </a>
+
+          {!maxWidth768px && (
+            <a
+              href="https://github.com/reed-codes/watsapp-clone"
+              target="_blank"
+            >
+              <IconButton
+                className="md:opacity-50 hover:opacity-100"
+                aria-label="upload picture"
+                component="span"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </a>
+          )}
+        </Box>
       </Box>
     </Box>
   );

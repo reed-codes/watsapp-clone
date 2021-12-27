@@ -8,10 +8,10 @@ import { scrollToLatestMessage } from "../../lib/scroll-for-new-message";
 const ImageMessageItem = (props) => {
   return (
     <MessageWrapper {...props}>
-      <Box>
+      <Box className="hover:brightness-75 cursor-pointer">
         <img
           src={props.message.MediaURL}
-          className="w-full pointer-events-none"
+          className="w-full pointer-events-none max-h-[500px]"
           onLoad={scrollToLatestMessage}
         />
         <Typography className="p-4 pb-8">

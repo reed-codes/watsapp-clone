@@ -122,11 +122,14 @@ export default function SwipeableAppDrawer(props) {
                             src={
                               auth.currentUser ? auth.currentUser.photoURL : ""
                             }
-                            className="bg-black rounded-full absolute bottom-1 right-1 shadow-xl"
+                            className="bg-black rounded-full shadow-xl"
                             sx={{
                               height: "30px",
                               width: "30px",
                               background: "#111",
+                              position:'absolute',
+                              bottom:"4px",
+                              right: "4px"
                             }}
                           />
                         )}
@@ -134,7 +137,6 @@ export default function SwipeableAppDrawer(props) {
                   </Box>
 
                   <Typography
-                    className="font-bold text-[23px]"
                     sx={{
                       fontWeight: "bold",
                       fontSize: "23px",
@@ -142,11 +144,18 @@ export default function SwipeableAppDrawer(props) {
                   >
                     {user && user.Username}
                   </Typography>
-                  <Typography className="text-[15px]">
+
+                  <Typography sx = {{fontSize:"15px"}}
+                              >
                     {user && user.Email}
                   </Typography>
 
-                  <Typography className="text-[10px] opacity-80">
+                  <Typography 
+                             sx = {{
+                                 fontSize:"10px",
+                                 opacity:.8
+                             }}
+                             >
                     Joined {m.fromNow()}
                   </Typography>
                 </Box>
@@ -190,13 +199,32 @@ export default function SwipeableAppDrawer(props) {
               </Button>
 
               <Box className="absolute bottom-0 left-0 w-full p-4 opacity-75">
-                <Typography className="font-bold pt-2">
+                <Typography
+                  sx={{
+                    pt: "8px",
+                    fontWeight: "bold",
+                  }}
+                >
                   Telegram Clone
                 </Typography>
-                <Typography className="text-sm font-bold opacity-50 pt-2">
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    pt: "8px",
+                    opacity: 0.5,
+                    fontWeight: "bold",
+                  }}
+                >
                   By Reedemer
                 </Typography>
-                <Typography className="text-sm pt-2">Version 3.3</Typography>
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    pt: "8px",
+                  }}
+                >
+                  Version 3.3
+                </Typography>
               </Box>
             </Box>
           </Box>

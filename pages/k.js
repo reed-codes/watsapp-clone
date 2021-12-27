@@ -23,7 +23,8 @@ export default function Home() {
   return (
     <>
       <Box className="h-screen w-full flex items-start">
-        <Box className="flex flex-col min-w-[300px] md:w-[27vw] w-full h-full bg-[#17212b] relative pt-[30px]">
+        <Box className="flex flex-col min-w-[300px] md:w-[27vw] w-full h-full bg-[#17212b] relative">
+
           <UserAccountsListWrapper toggleDrawer={toggleAppDrawer} />
         </Box>
 

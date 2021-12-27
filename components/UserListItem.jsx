@@ -13,7 +13,8 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 
 const UserListItem = (props) => {
-  const { currentChat, setCurrentChat, MESSAGE_SENT_HYDRATION_TRIGGER } = useCurrentChat();
+  const { currentChat, setCurrentChat, MESSAGE_SENT_HYDRATION_TRIGGER } =
+    useCurrentChat();
   const [data, setData] = useState(null);
   const router = useRouter();
   const minWidth768px = useMediaQuery("(min-width:763px)");

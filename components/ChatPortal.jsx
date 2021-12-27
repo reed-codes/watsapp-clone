@@ -76,7 +76,7 @@ const ChatPortal = () => {
   return (
     <>
       <Box
-        className="h-screen w-full pt-[100px] pb-[55px] relative bg-[#0c1118]"
+        className="h-screen w-full pb-[55px] relative bg-[#0c1118]"
         sx={{
           transform: "translate(0,0)",
           backgroundImage: `url(${user?.WallpaperImage})`,
