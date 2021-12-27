@@ -9,29 +9,23 @@ import SwipeableChatDrawer from "./SwipeableChatDrawer";
 import { useCurrentChat } from "./Layout";
 import {
   collection,
-  getDocs,
-  doc,
   onSnapshot,
   orderBy,
   query,
   where,
-  writeBatch,
-  updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../firebase/client-app";
+import { handleMessageReadStatus } from "../lib/handle-messages-read-status";
 import { useUser } from "../state/context/userContext";
 
-
-
-
 const ChatPortal = () => {
-  const { currentChat } = useCurrentChat();
-  const {user} = useUser()
+  const { currentChat, TRIGGER_MESSAGE_SENT_UPDATE } = useCurrentChat();
+  const { user } = useUser();
   const [messages, setMessages] = useState([]);
   const [openMediaUploader, setOpenMediaUploader] = useState(false);
   const [openChatDrawer, setOpenChatDrawer] = useState(false);
 
-  const userOne = (auth.currentUser ? auth.currentUser.uid : "") ;
+  const userOne = auth.currentUser ? auth.currentUser.uid : "";
   const userTwo = currentChat.ID;
   const conversationID =
     userOne > userTwo
@@ -65,7 +59,6 @@ const ChatPortal = () => {
     return () => unsubscriber();
   }, [currentChat]);
 
-
   useEffect(() => {
     const q = query(
       collection(db, `chats/${conversationID}/messages`),
@@ -73,9 +66,12 @@ const ChatPortal = () => {
       where("Unread", "==", true)
     );
 
-    getUnreadMessages(q, conversationID);
+    handleMessageReadStatus(q, conversationID, TRIGGER_MESSAGE_SENT_UPDATE);
   }, [messages]);
 
+  useEffect(() => {
+    TRIGGER_MESSAGE_SENT_UPDATE({ sent: true });
+  }, []);
 
   return (
     <>
@@ -91,7 +87,7 @@ const ChatPortal = () => {
         <Box
           className="h-full w-full"
           sx={{
-            background:user?.WallpaperImage ? "rgba(0,0,0,.8)" : "#0c1118"
+            background: user?.WallpaperImage ? "rgba(0,0,0,.8)" : "#0c1118",
           }}
         >
           <ChatBoxTopBar
@@ -106,7 +102,10 @@ const ChatPortal = () => {
                   <TextMessageItem
                     key={message.ID}
                     message={message}
-                    self={message.SenderID === (auth.currentUser ? auth.currentUser.uid : "") }
+                    self={
+                      message.SenderID ===
+                      (auth.currentUser ? auth.currentUser.uid : "")
+                    }
                   />
                 );
               else if (message.Type === "IMAGE")
@@ -114,7 +113,10 @@ const ChatPortal = () => {
                   <ImageMessageitem
                     key={message.ID}
                     message={message}
-                    self={message.SenderID === (auth.currentUser ? auth.currentUser.uid : "") }
+                    self={
+                      message.SenderID ===
+                      (auth.currentUser ? auth.currentUser.uid : "")
+                    }
                   />
                 );
               else if (message.Type === "AUDIO")
@@ -122,7 +124,10 @@ const ChatPortal = () => {
                   <AudioMessageItem
                     key={message.ID}
                     message={message}
-                    self={message.SenderID === (auth.currentUser ? auth.currentUser.uid : "") }
+                    self={
+                      message.SenderID ===
+                      (auth.currentUser ? auth.currentUser.uid : "")
+                    }
                   />
                 );
             })}
@@ -146,43 +151,5 @@ const ChatPortal = () => {
     </>
   );
 };
-
-
-const getUnreadMessages = async (query, conversationID) => {
-  const querySnapshot = await getDocs(query);
-  let unreadDocs = [];
-  querySnapshot.forEach((doc) => {
-    unreadDocs.push(doc.id);
-  });
-
-  const refs = unreadDocs.map((docID) =>
-    doc(db, `chats/${conversationID}/messages/${docID}`)
-  );
-
-  if (refs.length == 0) {
-    document.querySelector("#scroll-into-view-stub").scrollIntoView({
-      behavior: "smooth",
-    });
-    return
-  };
-
-  markMessagesAsRead(refs, conversationID);
-};
-
-const markMessagesAsRead = async (docRefs, conversationID) => {
-  const batch = writeBatch(db);
-  docRefs.forEach((ref) => batch.update(ref, { Unread: false }));
-  await batch.commit();
-  console.log("BACTCH UPDATE DONE");
-  const lastMessageRef = doc(db, `last-messages/${conversationID}`);
-  await updateDoc(lastMessageRef, { Unread: false });
-  console.log("LAST MESSAGE SEEN UPDATE DONE");
-
-  document.querySelector("#scroll-into-view-stub").scrollIntoView({
-    behavior: "smooth",
-  });
-};
-
-
 
 export default ChatPortal;

@@ -13,7 +13,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 
 const UserListItem = (props) => {
-  const { currentChat, setCurrentChat, messageSentFlag } = useCurrentChat();
+  const { currentChat, setCurrentChat, MESSAGE_SENT_HYDRATION_TRIGGER } = useCurrentChat();
   const [data, setData] = useState(null);
   const router = useRouter();
   const minWidth768px = useMediaQuery("(min-width:763px)");
@@ -54,7 +54,7 @@ const UserListItem = (props) => {
     );
 
     return () => unsubscriber();
-  }, [messageSentFlag]);
+  }, [MESSAGE_SENT_HYDRATION_TRIGGER]);
 
   return (
     <Button
@@ -78,7 +78,9 @@ const UserListItem = (props) => {
 
           <Box
             className="bg-[#63b3fa] h-[8px] w-[8px] rounded-full absolute right-[3px] bottom-[5px]"
-            sx={{ display: (props.user && props.user.IsOnline) ? "block" : "none" }}
+            sx={{
+              display: props.user && props.user.IsOnline ? "block" : "none",
+            }}
           >
             <Box className="h-full w-full bg-[cyan] rounded-full animate-pulse" />
           </Box>
@@ -98,9 +100,18 @@ const UserListItem = (props) => {
             className="normal-case w-full truncate relative pr-5"
             sx={{
               pl: data?.MediaURL && data?.Type === "IMAGE" ? "25px" : 0,
-              opacity: ((data?.Unread) && (auth.currentUser.uid !== data?.SenderID)) ? 1 : 0.5,
-              color: ((data?.Unread) && (auth.currentUser.uid !== data?.SenderID)) ? "#7ac2eb" : "inherit",
-              fontWeight: ((data?.Unread) && (auth.currentUser.uid !== data?.SenderID)) ? "bold" : "light",
+              opacity:
+                data?.Unread && auth.currentUser.uid !== data?.SenderID
+                  ? 1
+                  : 0.5,
+              color:
+                data?.Unread && auth.currentUser.uid !== data?.SenderID
+                  ? "#7ac2eb"
+                  : "inherit",
+              fontWeight:
+                data?.Unread && auth.currentUser.uid !== data?.SenderID
+                  ? "bold"
+                  : "light",
             }}
           >
             {data?.MediaURL && data.Type === "IMAGE" && (

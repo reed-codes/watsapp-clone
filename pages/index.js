@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/system'
 import { Button } from '@mui/material'
 import GoogleIcon from "@mui/icons-material/Google";
-import { signInWithGoogle } from "../lib";
+import { signInWithGoogle } from "../lib/sign-in-with-google";
 
 const SignIn = () => {
     return (
@@ -24,7 +24,7 @@ const SignIn = () => {
                 </Box>
 
                 <Box component="span"
-                    className="font-bold p-2 h-full w-full bg-[#049be4] flex items-center justify-center text-white text-[13px]" 
+                    className="font-bold p-2 h-full w-full bg-[#049be4] flex items-center justify-center text-white text-[13px]"
                 >
                     Sign in with google
                 </Box>

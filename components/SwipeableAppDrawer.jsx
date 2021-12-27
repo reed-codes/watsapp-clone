@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { Button, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import { signOut } from "../lib";
+import { signOut } from "../lib/sign-out";
 import { useUser } from "../state/context/userContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -15,7 +15,7 @@ import moment from "moment";
 import { useCurrentChat } from "./Layout";
 
 const BTN_STYLE = {
-  justifyContent: "flex-start", 
+  justifyContent: "flex-start",
   fontWeight: "bold",
   color: "#fff",
   borderRadius: 0,
