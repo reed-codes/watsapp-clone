@@ -20,9 +20,9 @@ const UserAccountsListWrapperTopBar = (props) => {
 
   return ( 
     <>
-      <Box className="h-[30px] w-full bg-[#242f3d] hidden md:block" />
+      <Box className="min-h-[30px] w-full bg-[#242f3d] hidden md:block" />
 
-      <Box className="h-[70px] flex items-center justify-between gap-3 border-b border-solid border-gray-800 px-4">
+      <Box className="min-h-[70px] flex items-center justify-between gap-3 border-b border-solid border-gray-800 px-4">
         <IconButton
           className="opacity-50 hover:opacity-100"
           onClick={props.toggleDrawer(true)}

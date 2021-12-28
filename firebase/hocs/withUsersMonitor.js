@@ -13,13 +13,13 @@ import { useCurrentChat } from "../../components/Layout";
 const withUsersMonitor = (WrappedComponent) => {
     return (
         (props) => {
-            const {currentChat, setCurrentChat} = useCurrentChat();
+            const { currentChat, setCurrentChat } = useCurrentChat();
             const router = useRouter()
             const [users, setUsers] = useState([]);
+            const [loading, setLoading] = useState(true);
 
             useEffect(() => {
-                if(!auth.currentUser) 
-                {
+                if (!auth.currentUser) {
                     router.push('/')
                     return
                 }
@@ -28,22 +28,23 @@ const withUsersMonitor = (WrappedComponent) => {
                 const q = query(usersRef, where('ID', 'not-in', [auth.currentUser.uid]));
                 const unsubscribe = onSnapshot(q, querySnapshot => {
                     let users = []
-                    querySnapshot.forEach(doc => users.push( doc.data() ))
+                    querySnapshot.forEach(doc => users.push(doc.data()))
+                    setLoading(false)
                     setUsers(users)
                 })
 
                 return () => unsubscribe()
             }, [])
 
-            useEffect(()=>{
-                     if(currentChat){
-                            const currentChatMatch = users.filter(user => user.ID === currentChat.ID)
-                            if(currentChatMatch.length > 0)
-                              setCurrentChat(currentChatMatch[0])
-                     }
-            },[users])
+            useEffect(() => {
+                if (currentChat) {
+                    const currentChatMatch = users.filter(user => user.ID === currentChat.ID)
+                    if (currentChatMatch.length > 0)
+                        setCurrentChat(currentChatMatch[0])
+                }
+            }, [users])
 
-            return <WrappedComponent users = {users} {...props} />
+            return <WrappedComponent users={users} usersLoading={loading} {...props} />
         }
     )
 }

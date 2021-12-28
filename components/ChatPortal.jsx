@@ -80,12 +80,12 @@ const ChatPortal = () => {
         sx={{
           transform: "translate(0,0)",
           backgroundImage: `url(${user?.WallpaperImage})`,
-          backgroundSize: "50px",
+          backgroundSize: "250px",
         }}
         onDragOver={handleMediaUploaderOpen}
       >
         <Box
-          className="h-full w-full"
+          className="h-full w-full flex flex-col"
           sx={{
             background: user?.WallpaperImage ? "rgba(0,0,0,.8)" : "#0c1118",
           }}
@@ -96,7 +96,7 @@ const ChatPortal = () => {
           />
 
           <Box
-            className="h-full w-full overflow-auto p-4"
+            className="h-full w-full overflow-auto p-4 mt-4"
             sx={{ paddingTop: "115px !important" }}
           >
             {messages.map((message) => {

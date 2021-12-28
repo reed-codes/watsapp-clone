@@ -163,3 +163,8 @@ canvas {
        background:#b8d7fd
     }
 }
+
+
+.MuiMenu-list{
+  background : #242f3d !important
+}

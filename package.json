@@ -31,6 +31,7 @@
     "react-html-parser": "^2.0.2",
     "react-input-emoji": "^4.0.9",
     "react-media-recorder": "^1.6.3",
+    "react-medium-image-zoom": "^4.3.5",
     "react-mp3-recorder": "^1.1.2",
     "react-redux": "^7.2.4",
     "react-spinners-kit": "^1.9.1",

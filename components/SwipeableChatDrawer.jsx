@@ -31,13 +31,14 @@ export default function SwipeableChatDrawer(props) {
               background: props.currentChat.WallpaperImage
                 ? `url(${props.currentChat.WallpaperImage})`
                 : `url(${props.currentChat.ProfileImage})`,
-              backgroundSize: "10px",
+              // backgroundSize: "10px",
+              backgroundSize: "cover",
             }}
           >
             <Box
               className="h-full w-full flex items-center justify-center relative"
               sx={{
-                background: "rgba(0,0,0,.7)",
+                background: "rgba(0,0,0,.8)",
               }}
             >
               {
@@ -100,7 +101,7 @@ export default function SwipeableChatDrawer(props) {
               {props.currentChat.Username}
             </Typography>
 
-            <Typography
+            {/* <Typography
               sx={{
                 fontSize: "13px",
                 opacity: 0.8,
@@ -108,7 +109,7 @@ export default function SwipeableChatDrawer(props) {
               }}
             >
               {props.currentChat.Email}
-            </Typography>
+            </Typography> */}
 
             <Typography
               sx={{

@@ -16,10 +16,11 @@ const ChatBoxTopBar = (props) => {
   const m = moment(new Date(currentChat?.LastSeen));
 
   return (
-    <Box className="min-h-[70px] bg-[#17212b] w-full fixed z-[100] top-0 left-0 flex flex-col items-center justify-between border-l border-b border-solid border-gray-900">
-      <Box className="h-[30px] w-full bg-[#242f3d] hidden md:block" />
+    // <Box className="min-h-[70px] bg-[#17212b] w-full fixed z-[100] top-0 left-0 flex flex-col items-center justify-between border-l border-b border-solid border-gray-900">
+    <Box className="min-h-[70px] bg-[#17212b] w-full flex flex-col items-center justify-between border-l border-b border-solid border-gray-900 relative z-10">
+      <Box className="min-h-[30px] w-full bg-[#242f3d] hidden md:block" />
 
-      <Box className="w-full flex items-center justify-between min-h-[70px]">
+      <Box className="w-full flex items-center justify-between min-h-[70px] bg-[#17212b]">
         {maxWidth768px && (
           <IconButton
             className="flex text-white rounded-none"
@@ -47,7 +48,7 @@ const ChatBoxTopBar = (props) => {
               minHeight: maxWidth768px ? "20px" : "45px",
             }}
             component="span"
-            className = "pointer-events-none"
+            className="pointer-events-none"
           />
         </Box>
 

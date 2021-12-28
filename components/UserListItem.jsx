@@ -59,7 +59,7 @@ const UserListItem = (props) => {
 
   return (
     <Button
-      className="block p-0 m-0 w-full h-[72px] text-left my-1 rounded-none"
+      className="block p-0 m-0 w-full h-[72px] text-left my-2 rounded-none"
       sx={{ borderRadius: 0 }}
       onClick={handleAccountClick}
     >

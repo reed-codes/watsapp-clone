@@ -5,6 +5,7 @@ import AudioRecorder from "./AudioRecorder";
 import { IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import RecordPanel from "./RecordPanel";
 import MediaUploader from "./MediaUploader";
 import { useDropzone } from "react-dropzone";
@@ -123,7 +124,7 @@ const ChatControls = (props) => {
           className="min-w-[35px] min-h-[35px] opacity-50 hover:opacity-100"
           onClick={props.handleMediaUploaderOpen}
         >
-          <AttachFileIcon className="text-[20px]" />
+          <AddPhotoAlternateIcon className="text-[20px]" />
         </IconButton>
 
         <Box className="flex-1">
