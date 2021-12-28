@@ -18,7 +18,7 @@ const UserAccountsListWrapperTopBar = (props) => {
     setOpenSearchInput(false);
   };
 
-  return (
+  return ( 
     <>
       <Box className="h-[30px] w-full bg-[#242f3d] hidden md:block" />
 
