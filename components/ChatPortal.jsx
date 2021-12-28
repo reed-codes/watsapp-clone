@@ -80,7 +80,7 @@ const ChatPortal = () => {
         sx={{
           transform: "translate(0,0)",
           backgroundImage: `url(${user?.WallpaperImage})`,
-          backgroundSize: "70px",
+          backgroundSize: "50px",
         }}
         onDragOver={handleMediaUploaderOpen}
       >

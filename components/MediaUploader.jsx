@@ -127,7 +127,7 @@ const DropZoneContent = () => {
       </svg>
 
       <Box className="mb-5 text-[22px]">Drag photo</Box>
-      <Button variant="contained">Select from computer</Button>
+      <Button variant="contained">Select from files</Button>
     </>
   );
 };

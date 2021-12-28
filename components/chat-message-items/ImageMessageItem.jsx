@@ -11,7 +11,7 @@ const ImageMessageItem = (props) => {
       <Box className="hover:brightness-75 cursor-pointer">
         <img
           src={props.message.MediaURL}
-          className="w-full pointer-events-none max-h-[500px]"
+          className="w-full pointer-events-none max-h-[500px] max-2-[500px]"
           onLoad={scrollToLatestMessage}
         />
         <Typography className="p-4 pb-8">

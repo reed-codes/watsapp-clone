@@ -73,7 +73,7 @@ export default function SwipeableAppDrawer(props) {
           onOpen={props.toggleDrawer(true)}
         >
           <Box
-            sx={{ width: 330 }}
+            sx={{ width: 300 }}
             role="presentation"
             onKeyDown={props.toggleDrawer(false)}
             className="flex flex-col h-full bg-[#17212b]"
@@ -107,7 +107,7 @@ export default function SwipeableAppDrawer(props) {
                       <Avatar
                         alt={user ? user.Username : ""}
                         src={user && user.ProfileImage}
-                        className="bg-black rounded-full shadow-xl"
+                        className="bg-black rounded-full shadow-xl pointer-events-none"
                         sx={{
                           height: minWidth763px ? "130px" : "90px",
                           width: minWidth763px ? "130px" : "90px",
@@ -122,7 +122,7 @@ export default function SwipeableAppDrawer(props) {
                             src={
                               auth.currentUser ? auth.currentUser.photoURL : ""
                             }
-                            className="bg-black rounded-full shadow-xl"
+                            className="bg-black rounded-full shadow-xl pointer-events-none"
                             sx={{
                               height: "30px",
                               width: "30px",

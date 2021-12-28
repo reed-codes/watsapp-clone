@@ -19,7 +19,7 @@ export default function SwipeableChatDrawer(props) {
         onOpen={props.toggleDrawer(true)}
       >
         <Box
-          sx={{ width: 330 }}
+          sx={{ width: 300 }}
           role="presentation"
           // onClick={props.toggleDrawer(false)}
           onKeyDown={props.toggleDrawer(false)}
@@ -51,6 +51,7 @@ export default function SwipeableChatDrawer(props) {
                       objectFit: "cover",
                       objectPosition: "center",
                     }}
+                    className = "pointer-events-none"
                   />
 
                   <Avatar
@@ -63,6 +64,7 @@ export default function SwipeableChatDrawer(props) {
                       bottom: 0,
                       right: 0,
                     }}
+                    className = "pointer-events-none"
                   />
                 </Box>
               }

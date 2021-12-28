@@ -27,7 +27,7 @@ const ChatControls = (props) => {
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png",
-    maxFiles: 1,
+    maxFiles: 100,
     onDrop: (acceptedFiles) => {
       setFiles(
         acceptedFiles.map((file) =>

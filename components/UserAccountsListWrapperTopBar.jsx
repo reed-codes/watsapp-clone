@@ -22,7 +22,7 @@ const UserAccountsListWrapperTopBar = (props) => {
     <>
       <Box className="h-[30px] w-full bg-[#242f3d] hidden md:block" />
 
-      <Box className="h-[70px] min-h-[70px] flex items-center justify-between gap-3 border-b border-solid border-gray-800 px-4">
+      <Box className="h-[70px] flex items-center justify-between gap-3 border-b border-solid border-gray-800 px-4">
         <IconButton
           className="opacity-50 hover:opacity-100"
           onClick={props.toggleDrawer(true)}
@@ -59,7 +59,7 @@ const UserAccountsListWrapperTopBar = (props) => {
           </>
         ) : (
           <IconButton
-            className="opacity-50 hover:opacity-100"
+            className="opacity-50 hover:opacity-100 md:hidden"
             onClick={handleSearchInputOpen}
             component="span"
           >
