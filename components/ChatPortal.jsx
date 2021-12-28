@@ -95,7 +95,10 @@ const ChatPortal = () => {
             currentChat={currentChat}
           />
 
-          <Box className="h-full w-full overflow-auto p-4">
+          <Box
+            className="h-full w-full overflow-auto p-4"
+            sx={{ paddingTop: "115px !important" }}
+          >
             {messages.map((message) => {
               if (message.Type === "TEXT")
                 return (
