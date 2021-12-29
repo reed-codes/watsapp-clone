@@ -99,6 +99,9 @@ export default function WallpaperImageSelectionModal(props) {
                 srcSet={src}
                 alt={"wallpaper"}
                 loading="lazy"
+                style = {{
+                  background:'#049be4'
+                }}
                 onClick={(e) => props.selectBackground(e.currentTarget.src)}
               />
             </ImageListItem>
