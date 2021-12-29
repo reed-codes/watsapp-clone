@@ -8,21 +8,21 @@ const SignIn = () => {
     return (
         <Box className="fixed bottom-0 flex justify-center items-center flex-col w-full h-full overflow-hidden bg-[#0c1118]" >
             <img src="/telegram-logo.png"
-                className="w-[50px] h-[50px] object-contain mb-20 rounded-full animate-bounce pointer-events-none bg-[#000]"
+                className="w-[50px] h-[50px] object-contain mb-20 rounded-full animate-bounce pointer-events-none bg-[#049be4]"
             />
 
             <Button
                 variant="contained"
-                className="p-0 justify-center items-center overflow-hidden rounded rounded"
+                className="p-0 justify-center items-center overflow-hidden"
                 sx={{ padding: 0 }}
                 onClick={signInWithGoogle}
             >
-                <Box component="span" className="bg-white p-4 h-full min-w-[80px] flex items-center justify-center">
+                <Box component="span" className="bg-white p-4 h-full min-w-[60px] flex items-center justify-center">
                     <GoogleIcon className="text-[red] text-[13px]" />
                 </Box>
 
                 <Box component="span"
-                    className="font-bold p-2 h-full w-full flex items-center justify-center text-white text-[13px] bg-[#049ae3]"
+                    className="font-bold py-2 px-4 h-full w-full flex items-center justify-center text-white text-[11px] bg-[#049ae3]"
                 >
                     Sign in with google
                 </Box>

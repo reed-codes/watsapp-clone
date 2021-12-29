@@ -76,7 +76,7 @@ const ChatPortal = () => {
   return (
     <>
       <Box
-        className="h-screen w-full pb-[55px] relative bg-[#0c1118]"
+        className="h-screen w-full pb-[55px] relative bg-[#0c1118] flex flex-col"
         sx={{
           transform: "translate(0,0)",
           backgroundImage: `url(${user?.WallpaperImage})`,
@@ -97,7 +97,7 @@ const ChatPortal = () => {
 
           <Box
             className="h-full w-full overflow-auto p-4 mt-4"
-            sx={{ paddingTop: "115px !important" }}
+            sx={{ paddingTop: "15px !important" }}
           >
             {messages.map((message) => {
               if (message.Type === "TEXT")

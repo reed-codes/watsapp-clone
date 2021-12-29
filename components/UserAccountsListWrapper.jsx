@@ -40,7 +40,7 @@ const UserAccountsListWrapper = ({ toggleDrawer, users, usersLoading }) => {
           bottom: 0,
           left: 0,
           zIndex: 10,
-          filter: "brightness(50%)",
+          filter: "brightness(70%)",
         }}
       />
     </Box>
